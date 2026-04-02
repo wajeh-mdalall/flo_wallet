@@ -1,0 +1,71 @@
+# --- [ 1. FLUTTER & DART CORE ] ---
+# Android/iOS/Web/Desktop build artifacts
+build/
+/build/
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+/ios/Flutter/.last_build_id
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh
+
+# Dependencies & Generated files
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
+lib/generated_plugin_registrant.dart
+app.*.symbols
+app.*.map.json
+
+# --- [ 2. FIREBASE & SECRETS ] ---
+# CRITICAL: Hide private config for Public Repos
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
+*.env
+*.keystore
+*.jks
+*.key
+android/key.properties
+local.properties
+
+# --- [ 3. IDEs & SYSTEM ] ---
+# VS Code (Ignore personal workspace, keep shared settings)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# System files
+[Dd]esktop.ini
+Thumbs.db
+.DS_Store
+*.log
+*.swp
+.history/
+
+# --- [ 4. MISCELLANEOUS / LEGACY ] ---
+*.class
+*.pyc
+.atom/
+.build/
+.buildlog/
+.svn/
+.swiftpm/
+migrate_working_dir/
+coverage/
+doc/api/
+
+# --- [ 5. EXCEPTIONS ] ---
+# IMPORTANT: Keep pubspec.lock for Application stability
+!pubspec.lock
