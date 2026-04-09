@@ -1,4 +1,4 @@
-import 'package:flo_wallet/core/errors/failure.dart';
+import 'package:flo_wallet/core/errors/failures/failure.dart';
 
 abstract class AuthFailure extends Failure {
   const AuthFailure(super.errMessage);

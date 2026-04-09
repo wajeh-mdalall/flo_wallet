@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flo_wallet/core/errors/failure.dart';
+import 'package:flo_wallet/core/errors/failures/failure.dart';
 import '../failures/auth_failure.dart';
 
 class FirebaseAuthExceptionHandler {

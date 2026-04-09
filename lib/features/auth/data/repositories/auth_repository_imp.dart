@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/core/errors/Exceptions/auth_exception.dart';
+import 'package:flo_wallet/features/auth/errors/exceptions/auth_exception.dart';
 import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/constants.dart';
-import '../../../../core/errors/failure.dart';
+import '../../../../core/errors/failures/failure.dart';
 import '../../../../core/network/network_info.dart';
 import '../datasource/auth_remote_data_source/auth_remote_data_source.dart';
 import '../models/user_model.dart';

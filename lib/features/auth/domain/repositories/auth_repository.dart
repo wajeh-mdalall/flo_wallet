@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flo_wallet/features/auth/domain/entities/phone_auth_step_entity.dart';
-import '../../../../core/errors/failure.dart';
+import '../../../../core/errors/failures/failure.dart';
 import '../entities/user_entity.dart';
 
 abstract class AuthRepository {

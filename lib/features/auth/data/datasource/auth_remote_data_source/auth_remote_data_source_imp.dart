@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flo_wallet/core/errors/Exceptions/auth_exception.dart';
-import 'package:flo_wallet/core/errors/failure.dart';
+import 'package:flo_wallet/features/auth/errors/exceptions/auth_exception.dart';
+import 'package:flo_wallet/core/errors/failures/failure.dart';
 import 'package:flo_wallet/features/auth/data/models/user_model.dart';
 import 'package:flo_wallet/features/auth/errors/handler/firebase_auth_exception_handler.dart';
 import '../../../../../core/constants.dart';
@@ -31,6 +31,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       Failure failure = FirebaseAuthExceptionHandler.handle(e);
       throw AuthException(failure);
+    }catch (e){
+      throw AuthException(ServerFailure());
     }
   }
 
@@ -54,6 +56,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       Failure failure = FirebaseAuthExceptionHandler.handle(e);
       throw AuthException(failure);
+    }catch (e){
+      throw AuthException(ServerFailure());
     }
   }
 
@@ -68,6 +72,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       Failure failure = FirebaseAuthExceptionHandler.handle(e);
       throw AuthException(failure);
+    }catch (e){
+      throw AuthException(ServerFailure());
     }
   }
 
@@ -80,6 +86,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       Failure failure = FirebaseAuthExceptionHandler.handle(e);
       throw AuthException(failure);
+    }catch (e){
+      throw AuthException(ServerFailure());
     }
   }
 
@@ -90,6 +98,8 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       Failure failure = FirebaseAuthExceptionHandler.handle(e);
       throw AuthException(failure);
+    }catch (e){
+      throw AuthException(ServerFailure());
     }
   }
 }
