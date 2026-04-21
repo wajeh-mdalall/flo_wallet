@@ -11,11 +11,11 @@ import '../domain/usecases/send_phone_number_usecase.dart';
 import '../domain/usecases/sign_out_usecase.dart';
 import '../presentation/cubit/auth_cubit.dart';
 
-
-
 void setupAuthDI() {
+  // Data Source
   getIt.registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSourceImp());
 
+  // Repository
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImp(
       cacheHelper: getIt<CacheHelper>(),
@@ -23,6 +23,8 @@ void setupAuthDI() {
       remoteDataSource: getIt<AuthRemoteDataSource>(),
     ),
   );
+
+  // Use Cases
   getIt.registerLazySingleton<SendPhoneNumberUseCase>(
     () => SendPhoneNumberUseCase(authRepositories: getIt<AuthRepository>()),
   );
@@ -35,6 +37,8 @@ void setupAuthDI() {
   getIt.registerLazySingleton<SignOutUseCase>(
     () => SignOutUseCase(authRepositories: getIt<AuthRepository>()),
   );
+
+  //cubit
   getIt.registerLazySingleton<AuthCubit>(
     () => AuthCubit(
       sendPhoneNumberUseCase: getIt<SendPhoneNumberUseCase>(),
