@@ -1,4 +1,5 @@
 import 'package:flo_wallet/core/injection/core_di.dart';
+import 'package:flo_wallet/features/transactions/presentation/cubit/transactions_cubit.dart';
 import 'package:flo_wallet/features/wallet/presentation/cubit/wallet_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../constants.dart';
@@ -33,7 +34,10 @@ class AppRouter {
       GoRoute(
         path: AppConstants.kHomeView,
         builder: (context, state) => MultiBlocProvider(
-          providers: [BlocProvider(create: (context) => getIt<WalletCubit>())],
+          providers: [
+            BlocProvider(create: (context) => getIt<WalletCubit>()),
+            BlocProvider(create: (context) => getIt<TransactionsCubit>()),
+          ],
           child: HomeView(),
         ),
       ),
