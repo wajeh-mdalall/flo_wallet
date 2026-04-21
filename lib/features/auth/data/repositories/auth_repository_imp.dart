@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/features/auth/errors/exceptions/auth_exception.dart';
+import 'package:flo_wallet/core/errors/handler/exception_handler.dart';
 import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/errors/failures/failure.dart';
@@ -50,7 +50,9 @@ class AuthRepositoryImp implements AuthRepository {
         },
         onVerificationFailed: (exception) {
           if (!completer.isCompleted) {
-            completer.complete(left(_handleAuthError(exception)));
+            completer.complete(
+              left(ExceptionHandler.exceptionToFailure(exception)),
+            );
           }
         },
         codeAutoRetrievalTimeout: (_) {},
@@ -59,7 +61,10 @@ class AuthRepositoryImp implements AuthRepository {
             final userModel = await remoteDataSource.signInWithCredential(
               credential,
             );
-            await cacheHelper.saveData(key:AppConstants.uidKey, value: userModel.uId);
+            await cacheHelper.saveData(
+              key: AppConstants.uidKey,
+              value: userModel.uId,
+            );
 
             completer.complete(Right(AutoVerifiedSuccess(userModel)));
           }
@@ -67,7 +72,7 @@ class AuthRepositoryImp implements AuthRepository {
       );
     } catch (e) {
       if (!completer.isCompleted) {
-        completer.complete(left(_handleAuthError(e)));
+        completer.complete(left(ExceptionHandler.exceptionToFailure(e)));
       }
     }
     return completer.future.timeout(
@@ -92,7 +97,7 @@ class AuthRepositoryImp implements AuthRepository {
       await cacheHelper.saveData(key: AppConstants.uidKey, value: user.uId);
       return right(user);
     } catch (e) {
-      return left(_handleAuthError(e));
+      return left(ExceptionHandler.exceptionToFailure(e));
     }
   }
 
@@ -105,7 +110,7 @@ class AuthRepositoryImp implements AuthRepository {
       }
       return right(user);
     } catch (e) {
-      return left(_handleAuthError(e));
+      return left(ExceptionHandler.exceptionToFailure(e));
     }
   }
 
@@ -116,14 +121,7 @@ class AuthRepositoryImp implements AuthRepository {
       await cacheHelper.removeData(key: AppConstants.uidKey);
       return right(unit);
     } catch (e) {
-      return left(_handleAuthError(e));
+      return left(ExceptionHandler.exceptionToFailure(e));
     }
-  }
-
-  Failure _handleAuthError(Object e) {
-    if (e is AuthException) {
-      return e.failure;
-    }
-    return ServerFailure();
   }
 }
