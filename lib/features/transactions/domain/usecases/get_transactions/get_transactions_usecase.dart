@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/core/errors/failures/failure.dart';
-import 'package:flo_wallet/features/transactions/domain/entities/transactions_entity.dart';
-import 'package:flo_wallet/features/transactions/domain/repositories/transaction_repository.dart';
-import 'package:flo_wallet/features/transactions/domain/usecases/get_transactions/get_transactions_params.dart';
+import '../../../../../core/errors/failures/failure.dart';
+import '../../entities/transactions_entity.dart';
+import '../../repositories/transaction_repository.dart';
+import 'get_transactions_params.dart';
 
 class GetTransactionsUsecase {
   final TransactionRepository transactionRepository;

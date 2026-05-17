@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/core/errors/failures/failure.dart';
-import 'package:flo_wallet/features/transactions/domain/entities/transactions_entity.dart';
-import 'package:flo_wallet/features/transactions/domain/usecases/get_transactions/get_transactions_params.dart';
+import '../../../../core/errors/failures/failure.dart';
+import '../entities/transactions_entity.dart';
+import '../usecases/get_transactions/get_transactions_params.dart';
 
 abstract class TransactionRepository {
   Future<Either<Failure,List< TransactionEntity>>> getTransactions(

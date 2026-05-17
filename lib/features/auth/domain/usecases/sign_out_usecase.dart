@@ -3,10 +3,10 @@ import '../../../../core/errors/failures/failure.dart';
 import '../repositories/auth_repository.dart';
 
 class SignOutUseCase {
-  final AuthRepository authRepositories;
+  final AuthRepository authRepository;
 
-  SignOutUseCase({required this.authRepositories});
+  SignOutUseCase({required this.authRepository});
   Future<Either<Failure, Unit>> call() async {
-    return await authRepositories.signOut();
+    return await authRepository.signOut();
   }
 }

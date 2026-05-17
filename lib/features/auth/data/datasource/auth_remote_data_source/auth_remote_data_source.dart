@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flo_wallet/features/auth/data/models/user_model.dart';
-import 'package:flo_wallet/core/errors/exceptions/auth_exception.dart';
+import '../../models/auth_user_model.dart';
+import '../../../../../core/errors/exceptions/auth_exception.dart';
 
 abstract class AuthRemoteDataSource {
   Future<void> verifyPhoneNumber({
@@ -11,11 +11,11 @@ abstract class AuthRemoteDataSource {
     required void Function(String) codeAutoRetrievalTimeout,
     required void Function(PhoneAuthCredential) onVerificationCompleted,
   });
-  Future<UserModel> confirmWithSmsCode({
+  Future<AuthUserModel> confirmWithSmsCode({
     required String verificationId,
     required String smsCode,
   });
-  Future<UserModel> signInWithCredential(PhoneAuthCredential credential);
-  UserModel? getCurrentFirebaseUser();
+  Future<AuthUserModel> signInWithCredential(PhoneAuthCredential credential);
+  AuthUserModel? getCurrentFirebaseUser();
   Future<void> signOut();
 }

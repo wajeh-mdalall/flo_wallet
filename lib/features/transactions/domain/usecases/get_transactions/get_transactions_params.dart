@@ -1,14 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class GetTransactionsParams extends Equatable {
-  final String userId;
-  final int? limit; 
+  final String uId;
+  final int? limit;
 
-  const GetTransactionsParams({
-    required this.userId,
-    this.limit, 
-  });
+  const GetTransactionsParams({required this.uId, this.limit});
 
   @override
-  List<Object?> get props => [userId, limit];
+  List<Object?> get props => [uId, limit];
 }

@@ -1,5 +1,6 @@
-import 'package:flo_wallet/features/wallet/wallet_firestore_keys.dart';
-import 'package:flo_wallet/features/wallet/domain/entities/wallet_entity.dart';
+import '../../../../core/extensions/firestore_map_extension.dart';
+import '../../wallet_firestore_keys.dart';
+import '../../domain/entities/wallet_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WalletModel extends WalletEntity {
@@ -13,10 +14,10 @@ class WalletModel extends WalletEntity {
     required super.lastUpdated,
     required super.isActive,
   });
-  factory WalletModel.initial(String userId) {
+  factory WalletModel.initial(String uId) {
     return WalletModel(
-      uId: userId,
-      walletId: userId,
+      uId: uId,
+      walletId: uId,
       balance: 0,
       currencyCode: "USD",
       currencySymbol: "\$",
@@ -27,20 +28,15 @@ class WalletModel extends WalletEntity {
   }
   factory WalletModel.fromJson({required Map<String, dynamic> jsonWallet}) {
     return WalletModel(
-      uId: jsonWallet[WalletFirestoreKeys.uId] ?? "",
-      walletId: jsonWallet[WalletFirestoreKeys.walletId] ?? "",
-      balance: (jsonWallet[WalletFirestoreKeys.balance] as num?)?.toInt() ?? 0,
+      uId: jsonWallet[WalletFirestoreKeys.uId] as String? ?? "",
+      walletId: jsonWallet[WalletFirestoreKeys.walletId] as String? ?? "",
+      balance: jsonWallet.toIntSafe(WalletFirestoreKeys.balance),
       currencyCode:
           jsonWallet[WalletFirestoreKeys.currencyCode] as String? ?? "USD",
       currencySymbol:
           jsonWallet[WalletFirestoreKeys.currencySymbol] as String? ?? "\$",
-      createdAt:
-          (jsonWallet[WalletFirestoreKeys.createdAt] as Timestamp?)?.toDate() ??
-          DateTime.now(),
-      lastUpdated:
-          (jsonWallet[WalletFirestoreKeys.lastUpdated] as Timestamp?)
-              ?.toDate() ??
-          DateTime.now(),
+      createdAt: jsonWallet.toDateTime(WalletFirestoreKeys.createdAt),
+      lastUpdated: jsonWallet.toDateTime(WalletFirestoreKeys.lastUpdated),
       isActive: (jsonWallet[WalletFirestoreKeys.isActive] as bool?) ?? true,
     );
   }

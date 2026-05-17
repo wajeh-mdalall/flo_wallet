@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flo_wallet/core/errors/exceptions/auth_exception.dart';
-import 'package:flo_wallet/core/errors/failures/failure.dart';
-import 'package:flo_wallet/features/auth/data/models/user_model.dart';
-import 'package:flo_wallet/features/auth/errors/handler/firebase_auth_exception_handler.dart';
+import '../../../../../core/errors/exceptions/auth_exception.dart';
+import '../../../../../core/errors/failures/failure.dart';
+import '../../models/auth_user_model.dart';
+import '../../../errors/handler/firebase_auth_exception_handler.dart';
 import '../../../../../core/constants.dart';
 import 'auth_remote_data_source.dart';
 
@@ -37,7 +37,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
   }
 
   @override
-  Future<UserModel> confirmWithSmsCode({
+  Future<AuthUserModel> confirmWithSmsCode({
     required String verificationId,
     required String smsCode,
   }) async {
@@ -49,7 +49,7 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
       UserCredential userCredential = await _auth.signInWithCredential(
         credential,
       );
-      return UserModel.fromFirebaseUser(
+      return AuthUserModel.fromFirebaseUser(
         userCredential.user!,
         isNewUser: userCredential.additionalUserInfo?.isNewUser ?? false,
       );
@@ -59,10 +59,12 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
   }
 
   @override
-  Future<UserModel> signInWithCredential(PhoneAuthCredential credential) async {
+  Future<AuthUserModel> signInWithCredential(
+    PhoneAuthCredential credential,
+  ) async {
     try {
       final userCredential = await _auth.signInWithCredential(credential);
-      return UserModel.fromFirebaseUser(
+      return AuthUserModel.fromFirebaseUser(
         userCredential.user!,
         isNewUser: userCredential.additionalUserInfo!.isNewUser,
       );
@@ -72,11 +74,11 @@ class AuthRemoteDataSourceImp implements AuthRemoteDataSource {
   }
 
   @override
-  UserModel? getCurrentFirebaseUser() {
+  AuthUserModel? getCurrentFirebaseUser() {
     try {
       User? fbUser = _auth.currentUser;
       if (fbUser == null) return null;
-      return UserModel.fromFirebaseUser(fbUser);
+      return AuthUserModel.fromFirebaseUser(fbUser);
     } catch (e) {
       throw _handleAuthError(e);
     }

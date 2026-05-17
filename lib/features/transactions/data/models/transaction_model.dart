@@ -1,7 +1,7 @@
-import 'package:flo_wallet/features/transactions/domain/entities/transactions_entity.dart';
+import '../../domain/entities/transactions_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flo_wallet/core/extensions/firestore_map_extension.dart';
-import 'package:flo_wallet/features/transactions/transaction_firestore_keys.dart';
+import '../../../../core/extensions/firestore_map_extension.dart';
+import '../../transaction_firestore_keys.dart';
 
 class TransactionModel extends TransactionEntity {
   const TransactionModel({

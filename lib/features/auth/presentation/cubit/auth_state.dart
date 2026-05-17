@@ -20,10 +20,10 @@ final class CodeSent extends AuthState {
 
 //! After confirmOtp and getCurrentUser
 final class Authenticated extends AuthState {
-  final UserEntity user;
-  const Authenticated(this.user);
+  final AuthUserEntity authUser;
+  const Authenticated(this.authUser);
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [authUser];
 }
 final class AutoVerifying extends AuthState {}
 //! After signOut

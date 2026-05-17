@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flo_wallet/core/errors/exceptions/firestore_exception.dart';
-import 'package:flo_wallet/core/errors/handler/exception_handler.dart';
-import 'package:flo_wallet/features/wallet/data/datasource/wallet_remote_data_source/wallet_remote_data_source.dart';
-import 'package:flo_wallet/features/wallet/data/models/wallet_model.dart';
-import 'package:flo_wallet/core/errors/failures/firestore_failure.dart';
-import 'package:flo_wallet/features/wallet/wallet_firestore_keys.dart';
+import '../../../../../core/errors/exceptions/firestore_exception.dart';
+import '../../../../../core/errors/handler/exception_handler.dart';
+import 'wallet_remote_data_source.dart';
+import '../../models/wallet_model.dart';
+import '../../../../../core/errors/failures/firestore_failure.dart';
+import '../../../wallet_firestore_keys.dart';
 
 class WalletRemoteDataSourceImp implements WalletRemoteDataSource {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

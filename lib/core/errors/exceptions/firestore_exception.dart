@@ -1,4 +1,4 @@
-import 'package:flo_wallet/core/errors/failures/failure.dart';
+import '../failures/failure.dart';
 
 class FirestoreException implements Exception {
   final Failure failure;

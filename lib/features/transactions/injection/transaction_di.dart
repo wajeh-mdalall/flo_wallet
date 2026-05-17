@@ -1,5 +1,4 @@
-import 'package:flo_wallet/features/transactions/presentation/cubit/transactions_cubit.dart';
-
+import '../presentation/cubit/transactions_cubit.dart';
 import '../../../core/injection/core_di.dart';
 import '../../../core/network/network_info.dart';
 import '../data/datasource/transaction_remote_data_source/transaction_remote_data_source.dart';

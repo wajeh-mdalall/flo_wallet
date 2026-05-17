@@ -26,16 +26,16 @@ void setupAuthDI() {
 
   // Use Cases
   getIt.registerLazySingleton<SendPhoneNumberUseCase>(
-    () => SendPhoneNumberUseCase(authRepositories: getIt<AuthRepository>()),
+    () => SendPhoneNumberUseCase(authRepository: getIt<AuthRepository>()),
   );
   getIt.registerLazySingleton<ConfirmOtpUseCase>(
-    () => ConfirmOtpUseCase(authRepositories: getIt<AuthRepository>()),
+    () => ConfirmOtpUseCase(authRepository: getIt<AuthRepository>()),
   );
   getIt.registerLazySingleton<GetCurrentUserUseCase>(
-    () => GetCurrentUserUseCase(authRepositories: getIt<AuthRepository>()),
+    () => GetCurrentUserUseCase(authRepository: getIt<AuthRepository>()),
   );
   getIt.registerLazySingleton<SignOutUseCase>(
-    () => SignOutUseCase(authRepositories: getIt<AuthRepository>()),
+    () => SignOutUseCase(authRepository: getIt<AuthRepository>()),
   );
 
   //cubit

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flo_wallet/features/transactions/domain/entities/transactions_entity.dart';
+import '../../features/transactions/domain/entities/transactions_entity.dart';
 
 extension FirestoreMapExtension on Map<String, dynamic> {
   // 1. Convert Timestamp to DateTime

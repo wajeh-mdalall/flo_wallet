@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flo_wallet/core/errors/handler/exception_handler.dart';
-import 'package:flo_wallet/features/transactions/data/datasource/transaction_remote_data_source/transaction_remote_data_source.dart';
-import 'package:flo_wallet/features/transactions/data/models/transaction_model.dart';
-import 'package:flo_wallet/features/transactions/transaction_firestore_keys.dart';
+import '../../../../../core/errors/handler/exception_handler.dart';
+import 'transaction_remote_data_source.dart';
+import '../../models/transaction_model.dart';
+import '../../../transaction_firestore_keys.dart';
 
 class TransactionRemoteDataSourceImp implements TransactionRemoteDataSource {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Future<List<TransactionModel>> getTransactions({
-    required String userId,
+    required String uId,
     required int limit,
   }) async {
     try {
@@ -16,8 +16,8 @@ class TransactionRemoteDataSourceImp implements TransactionRemoteDataSource {
           .collection(TransactionFirestoreKeys.collectionName)
           .where(
             Filter.or(
-              Filter(TransactionFirestoreKeys.senderId, isEqualTo: userId),
-              Filter(TransactionFirestoreKeys.receiverId, isEqualTo: userId),
+              Filter(TransactionFirestoreKeys.senderId, isEqualTo: uId),
+              Filter(TransactionFirestoreKeys.receiverId, isEqualTo: uId),
             ),
           )
           .orderBy(TransactionFirestoreKeys.timestamp, descending: true)

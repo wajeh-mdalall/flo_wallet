@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/features/auth/domain/entities/phone_auth_step_entity.dart';
+import '../../domain/entities/phone_auth_step_entity.dart';
 import '../../../../core/errors/failures/failure.dart';
-import '../../domain/entities/user_entity.dart';
+import '../../domain/entities/auth_user_entity.dart';
 import '../../domain/usecases/confirm_otp_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
 import '../../domain/usecases/send_phone_number_usecase.dart';
@@ -53,7 +53,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> confirmOtp(String verificationId, String smsCode) async {
     emit(AuthLoading());
-    final Either<Failure, UserEntity> result = await confirmOtpUseCase(
+    final Either<Failure, AuthUserEntity> result = await confirmOtpUseCase(
       verificationId: verificationId,
       smsCode: smsCode,
     );
@@ -65,7 +65,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> getCurrentUser() async {
     emit(AuthLoading());
-    final Either<Failure, UserEntity?> result = await getCurrentUserUseCase();
+    final Either<Failure, AuthUserEntity?> result =
+        await getCurrentUserUseCase();
     result.fold(
       (_) => emit(Unauthenticated()),
       (user) => emit(user != null ? Authenticated(user) : Unauthenticated()),

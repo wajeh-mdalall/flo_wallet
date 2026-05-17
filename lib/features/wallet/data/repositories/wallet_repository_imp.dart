@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/core/errors/failures/failure.dart';
-import 'package:flo_wallet/core/errors/handler/exception_handler.dart';
-import 'package:flo_wallet/core/network/network_info.dart';
-import 'package:flo_wallet/features/wallet/data/datasource/wallet_remote_data_source/wallet_remote_data_source.dart';
-import 'package:flo_wallet/features/wallet/data/models/wallet_model.dart';
-import 'package:flo_wallet/features/wallet/domain/entities/wallet_entity.dart';
-import 'package:flo_wallet/features/wallet/domain/repositories/wallet_repository.dart';
+import '../../../../core/errors/failures/failure.dart';
+import '../../../../core/errors/handler/exception_handler.dart';
+import '../../../../core/network/network_info.dart';
+import '../datasource/wallet_remote_data_source/wallet_remote_data_source.dart';
+import '../models/wallet_model.dart';
+import '../../domain/entities/wallet_entity.dart';
+import '../../domain/repositories/wallet_repository.dart';
 
 class WalletRepositoryImp implements WalletRepository {
   final WalletRemoteDataSource remoteDataSource;
@@ -16,14 +16,12 @@ class WalletRepositoryImp implements WalletRepository {
     required this.networkInfo,
   });
   @override
-  Future<Either<Failure, Unit>> createWallet({
-    required String userId,
-  }) async {
+  Future<Either<Failure, Unit>> createWallet({required String uId}) async {
     if (!await networkInfo.isConnected) {
       return left(OfflineFailure());
     }
     try {
-      final WalletModel newWallet = WalletModel.initial(userId);
+      final WalletModel newWallet = WalletModel.initial(uId);
       await remoteDataSource.createWallet(wallet: newWallet);
       return right(unit);
     } catch (e) {
@@ -32,15 +30,13 @@ class WalletRepositoryImp implements WalletRepository {
   }
 
   @override
-  Future<Either<Failure, WalletEntity>> getWallet({
-    required String userId,
-  }) async {
+  Future<Either<Failure, WalletEntity>> getWallet({required String uId}) async {
     if (!await networkInfo.isConnected) {
       return left(OfflineFailure());
     }
     try {
       final WalletModel walletModel = await remoteDataSource.getWallet(
-        uId: userId,
+        uId: uId,
       );
       return right(walletModel);
     } catch (e) {

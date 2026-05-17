@@ -1,15 +1,17 @@
 import 'dart:async';
+
 import 'package:dartz/dartz.dart';
-import 'package:flo_wallet/core/errors/handler/exception_handler.dart';
+
 import '../../../../core/cache/cache_helper.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/errors/failures/failure.dart';
+import '../../../../core/errors/handler/exception_handler.dart';
 import '../../../../core/network/network_info.dart';
-import '../datasource/auth_remote_data_source/auth_remote_data_source.dart';
-import '../models/user_model.dart';
-import '../../domain/entities/user_entity.dart';
+import '../../domain/entities/auth_user_entity.dart';
 import '../../domain/entities/phone_auth_step_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../datasource/auth_remote_data_source/auth_remote_data_source.dart';
+import '../models/auth_user_model.dart';
 
 class AuthRepositoryImp implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
@@ -58,15 +60,14 @@ class AuthRepositoryImp implements AuthRepository {
         codeAutoRetrievalTimeout: (_) {},
         onVerificationCompleted: (credential) async {
           if (!completer.isCompleted) {
-            final userModel = await remoteDataSource.signInWithCredential(
-              credential,
-            );
+            final AuthUserModel user = await remoteDataSource
+                .signInWithCredential(credential);
             await cacheHelper.saveData(
               key: AppConstants.uidKey,
-              value: userModel.uId,
+              value: user.uId,
             );
 
-            completer.complete(Right(AutoVerifiedSuccess(userModel)));
+            completer.complete(Right(AutoVerifiedSuccess(user)));
           }
         },
       );
@@ -82,7 +83,7 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> confirmOtp({
+  Future<Either<Failure, AuthUserEntity>> confirmOtp({
     required String verificationId,
     required String smsCode,
   }) async {
@@ -90,7 +91,7 @@ class AuthRepositoryImp implements AuthRepository {
       return left(OfflineFailure());
     }
     try {
-      final UserModel user = await remoteDataSource.confirmWithSmsCode(
+      final AuthUserModel user = await remoteDataSource.confirmWithSmsCode(
         verificationId: verificationId,
         smsCode: smsCode,
       );
@@ -102,9 +103,9 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity?>> getCurrentUser() async {
+  Future<Either<Failure, AuthUserEntity?>> getCurrentUser() async {
     try {
-      UserModel? user = remoteDataSource.getCurrentFirebaseUser();
+      final AuthUserModel? user = remoteDataSource.getCurrentFirebaseUser();
       if (user == null) {
         return right(null);
       }

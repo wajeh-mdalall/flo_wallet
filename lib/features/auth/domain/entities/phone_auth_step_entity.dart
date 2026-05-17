@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flo_wallet/features/auth/domain/entities/user_entity.dart';
+import 'auth_user_entity.dart';
 
 sealed class PhoneAuthStepEntity extends Equatable {
   const PhoneAuthStepEntity();
@@ -23,7 +23,7 @@ class VerificationCodeSent extends PhoneAuthStepEntity {
 }
 
 class AutoVerifiedSuccess extends PhoneAuthStepEntity {
-  final UserEntity user;
+  final AuthUserEntity user;
 
   const AutoVerifiedSuccess(this.user);
   @override
