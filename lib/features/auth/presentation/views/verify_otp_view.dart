@@ -1,9 +1,9 @@
 import 'package:flo_wallet/core/constants.dart';
 import 'package:flo_wallet/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:flo_wallet/features/auth/presentation/functions/show_error_dialog.dart';
-import 'package:flo_wallet/features/auth/presentation/widgets/auth_input_scaffold.dart';
 import 'package:flo_wallet/features/auth/presentation/widgets/otp_resend_widget.dart';
 import 'package:flo_wallet/features/wallet/presentation/cubit/wallet_cubit.dart';
+import '../../../../core/functions/show_error_dialog.dart';
+import '../../../../core/widgets/custom_input_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -73,11 +73,11 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
       ],
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          return AuthInputScaffold(
+          return CustomInputScaffold(
             title: 'Enter the Code',
             subtitle:
                 'A verification code has been sent to ${widget.phoneNumber}',
-            input: Column(
+            body: Column(
               children: [
                 Pinput(
                   autofillHints: const [AutofillHints.oneTimeCode],

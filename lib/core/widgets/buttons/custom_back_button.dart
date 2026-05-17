@@ -1,9 +1,9 @@
-import 'package:flo_wallet/core/constants.dart';
+import '../../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CustomBackButtonWidget extends StatelessWidget {
-  const CustomBackButtonWidget({super.key});
+class CustomBackButton extends StatelessWidget {
+  const CustomBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {

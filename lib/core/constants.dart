@@ -15,28 +15,86 @@ abstract class AppColors {
   static const Color background = Colors.white;
 }
 
+abstract class ApptextStyle {
+  static final Color textColor = AppColors.secondary;
+  static TextStyle hintTextStyle() {
+    return TextStyle(
+      color: textColor.withAlpha(175),
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  static TextStyle inputTextStyle() {
+    return TextStyle(color: textColor, fontWeight: FontWeight.bold);
+  }
+
+  static TextStyle titleStyle({required double size, bool useAlpha = false}) {
+    return TextStyle(
+      color: useAlpha ? textColor.withAlpha(128) : textColor,
+      fontWeight: FontWeight.bold,
+      fontSize: size,
+    );
+  }
+}
+
 abstract class AppStyles {
+  // themes
+  static final ThemeData themeData = ThemeData(
+    textTheme: TextTheme(bodyLarge: ApptextStyle.inputTextStyle()),
+    canvasColor: AppColors.background,
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: AppColors.primary,
+      selectionColor: AppColors.primary.withAlpha(100),
+      selectionHandleColor: AppColors.primary,
+    ),
+  );
+  // button
   static final ButtonStyle primaryButtonStyle = ElevatedButton.styleFrom(
     minimumSize: const Size(double.infinity, 40),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
     backgroundColor: AppColors.primary,
     disabledBackgroundColor: Colors.grey,
   );
-  static InputDecoration customTextFieldDecoration({required String hintText}) {
+  // boxShadow
+  static final BoxShadow shadow = BoxShadow(
+    color: Colors.black.withAlpha(100),
+    blurRadius: 15,
+    offset: const Offset(0, 8),
+  );
+  // textField
+  static InputDecoration customTextFieldDecoration({
+    IconData? prefixIcon,
+    String? hintText,
+    String? errorText,
+    double? contentPaddingHorizontal,
+  }) {
     return InputDecoration(
+      errorText: errorText,
       errorStyle: const TextStyle(color: AppColors.primary),
       hintText: hintText,
-      hintStyle: TextStyle(color: AppColors.secondary.withAlpha(175)),
-      focusedBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.primary),
-        borderRadius: BorderRadius.circular(25),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.primary),
-        borderRadius: BorderRadius.circular(25),
-      ),
+      hintStyle: ApptextStyle.hintTextStyle(),
+      prefixIcon: prefixIcon != null
+          ? Padding(
+              padding: const EdgeInsets.only(left: 10, right: 4),
+              child: Icon(prefixIcon, color: AppColors.primary, size: 20),
+            )
+          : null,
+      prefixIconConstraints: BoxConstraints(),
+      focusedBorder: customOutlineInputBorder(),
+      errorBorder: customOutlineInputBorder(),
+      focusedErrorBorder: customOutlineInputBorder(),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-      contentPadding: const EdgeInsets.symmetric(vertical: 8),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: contentPaddingHorizontal ?? 16,
+      ),
+    );
+  }
+
+  static OutlineInputBorder customOutlineInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.primary),
+      borderRadius: BorderRadius.circular(25),
     );
   }
 }

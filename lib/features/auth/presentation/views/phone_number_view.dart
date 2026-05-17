@@ -1,7 +1,7 @@
-import 'package:flo_wallet/core/constants.dart';
-import 'package:flo_wallet/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:flo_wallet/features/auth/presentation/functions/show_error_dialog.dart';
-import 'package:flo_wallet/features/auth/presentation/widgets/auth_input_scaffold.dart';
+import '../../../../core/constants.dart';
+import '../cubit/auth_cubit.dart';
+import '../../../../core/functions/show_error_dialog.dart';
+import '../../../../core/widgets/custom_input_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -39,10 +39,10 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           showErrorDialog(context, state.errMessage);
         }
       },
-      builder: (context, state) => AuthInputScaffold(
+      builder: (context, state) => CustomInputScaffold(
         title: "Enter your mobile number",
         subtitle: "A verification code will be sent to this number.",
-        input: CustomPhoneInputWidget(
+        body: CustomPhoneInputWidget(
           onInputValidated: (value) {
             setState(() {
               isValidate = value;
@@ -53,7 +53,7 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           },
 
           errorText: (!isValidate && phoneNumber != null)
-              ? "Please enter the full and correct number to continue"
+              ? "Please enter a valid phone number"
               : null,
         ),
 

@@ -1,3 +1,5 @@
+import 'package:flo_wallet/core/functions/show_error_dialog.dart';
+
 import '../../../../core/constants.dart';
 import '../cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +14,11 @@ class AuthGateView extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          context.go(AppConstants.kHomeView);
+          context.go(AppConstants.kHomeView, extra: state.authUser.uId);
         } else if (state is Unauthenticated) {
           context.go(AppConstants.kPhoneNumberView);
         } else if (state is AuthError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.errMessage)));
+          showErrorDialog(context, state.errMessage);
         }
       },
       child: Scaffold(body: Center(child: const CircularProgressIndicator())),

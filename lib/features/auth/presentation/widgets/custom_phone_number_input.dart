@@ -1,4 +1,4 @@
-import 'package:flo_wallet/core/constants.dart';
+import '../../../../core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -19,12 +19,12 @@ class CustomPhoneInputWidget extends StatelessWidget {
       onInputValidated: onInputValidated,
       onInputChanged: onInputChanged,
       cursorColor: AppColors.primary,
-      textStyle: _phoneNumberInputStyle(),
+      textStyle: ApptextStyle.inputTextStyle(),
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.DROPDOWN,
         setSelectorButtonAsPrefixIcon: true,
         showFlags: true,
-        useEmoji: false,
+        useEmoji: true,
         trailingSpace: false,
       ),
       initialValue: PhoneNumber(isoCode: 'AE'),
@@ -32,12 +32,9 @@ class CustomPhoneInputWidget extends StatelessWidget {
       keyboardType: TextInputType.phone,
       inputDecoration: AppStyles.customTextFieldDecoration(
         hintText: "Mobile number",
-      ).copyWith(errorText: errorText),
-      selectorTextStyle: _phoneNumberInputStyle(),
+        errorText: errorText,
+      ),
+      selectorTextStyle: ApptextStyle.inputTextStyle(),
     );
-  }
-
-  TextStyle _phoneNumberInputStyle() {
-    return TextStyle(fontWeight: FontWeight.bold, color: AppColors.secondary);
   }
 }
