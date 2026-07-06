@@ -40,11 +40,13 @@ This project is built using **Clean Architecture** split into three distinct lay
 
 ## 📲 Download & Try the App
 
-You can download the production-ready application binary directly from the GitHub Releases section to test it live on your Android device.
+You can download the production-ready application binary directly from the GitHub Releases section. To ensure smooth performance across all hardware, two optimized versions are available:
 
 1. Go to the **Releases** section on the right sidebar of this repository.
-2. Download the `flo_wallet.apk`.
-3. Install and run it on your smartphone.
+2. Choose the appropriate version for your Android device:
+   - **`flo-wallet-arm64-v8a.apk`:** Optimized for modern/new devices (64-bit architecture).
+   - **`flo-wallet-armeabi-v7a.apk`:** Optimized for older devices (32-bit architecture).
+3. Download, install, and run it on your smartphone.
 
 ---
 
