@@ -1,8 +1,7 @@
-import 'package:flo_wallet/core/constants.dart';
-import 'package:flo_wallet/core/extensions/theme_extension.dart';
 import 'package:flo_wallet/core/widgets/custom_circular_progress_indicator.dart';
 import 'package:flo_wallet/core/widgets/custom_refresh_indicator.dart';
 import 'package:flo_wallet/core/widgets/transaction_list_view.dart';
+import 'package:flo_wallet/core/widgets/transactions_empty_message.dart';
 import 'package:flo_wallet/features/transactions/presentation/cubit/transactions_cubit/transactions_cubit.dart';
 import 'package:flo_wallet/core/widgets/custom_scrollable_container.dart';
 import 'package:flo_wallet/core/widgets/error_text_widget.dart';
@@ -84,15 +83,7 @@ class _TransactionsViewState extends State<TransactionsView> {
     }
     if (state.transactions.isEmpty) {
       return CustomScrollableContainer(
-        child: Center(
-          child: Text(
-            "You don't have any transactions yet",
-            style: ApptextStyle.titleStyle(
-              size: 22,
-              color: context.colors.secondary,
-            ),
-          ),
-        ),
+        child:TransactionsEmptyMessage(),
       );
     }
     return TransactionListView(

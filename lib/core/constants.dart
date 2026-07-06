@@ -1,4 +1,5 @@
 import 'package:flo_wallet/core/injection/core_di.dart';
+import 'package:flo_wallet/core/theme/app_theme_colors.dart';
 import 'package:flo_wallet/core/theme/cubit/theme_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ abstract class AppExtraKeys {
 }
 
 abstract class ApptextStyle {
-  static Color get textColor => getIt<ThemeCubit>().state.colors.secondary;
+  static Color get textColor => AppStyles.themeColorsNotifier.value.secondary;
   static TextStyle hintTextStyle() {
     return TextStyle(
       color: textColor.withAlpha(175),
@@ -71,11 +72,13 @@ abstract class ApptextStyle {
 }
 
 abstract class AppStyles {
-  static Color get primaryColor => getIt<ThemeCubit>().state.colors.primary;
-  static Color get backgroundColor => getIt<ThemeCubit>().state.colors.background;
+  static final ValueNotifier<AppThemeColors> themeColorsNotifier =
+      ValueNotifier<AppThemeColors>(getIt<ThemeCubit>().state.colors);
+  static Color get primaryColor => themeColorsNotifier.value.primary;
+  static Color get backgroundColor => themeColorsNotifier.value.background;
 
   // themes
-  static final ThemeData themeData = ThemeData(
+  static ThemeData get themeData => ThemeData(
     textTheme: TextTheme(bodyLarge: ApptextStyle.inputTextStyle()),
     canvasColor: backgroundColor,
     textSelectionTheme: TextSelectionThemeData(
@@ -106,7 +109,7 @@ abstract class AppStyles {
   }) {
     return InputDecoration(
       errorText: errorText,
-      errorStyle:  TextStyle(color: primaryColor),
+      errorStyle: TextStyle(color: primaryColor),
       hintText: hintText,
       hintStyle: ApptextStyle.hintTextStyle(),
       prefixIcon: prefixIcon != null

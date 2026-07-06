@@ -34,12 +34,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => getIt<AuthCubit>()..getCurrentUser()),
         BlocProvider(create: (context) => getIt<ThemeCubit>()),
       ],
-      child: BlocBuilder<ThemeCubit, ThemeState>(
+      child: BlocConsumer<ThemeCubit, ThemeState>(
+        listener: (context, state) =>
+            AppStyles.themeColorsNotifier.value = state.colors,
         builder: (context, state) {
-          return MaterialApp.router(
-            theme: AppStyles.themeData,
-            debugShowCheckedModeBanner: false,
-            routerConfig: AppRouter.router,
+          return ValueListenableBuilder(
+            valueListenable: AppStyles.themeColorsNotifier,
+            builder: (context, value, child) => MaterialApp.router(
+              key: ValueKey(state.isDarkMode),
+              theme: AppStyles.themeData,
+              debugShowCheckedModeBanner: false,
+              routerConfig: AppRouter.router,
+            ),
           );
         },
       ),

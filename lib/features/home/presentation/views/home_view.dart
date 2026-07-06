@@ -1,6 +1,7 @@
 import 'package:flo_wallet/core/functions/refresh_home_data.dart';
 import 'package:flo_wallet/core/functions/show_qr_bottom_sheet.dart';
 import 'package:flo_wallet/core/widgets/custom_circular_progress_indicator.dart';
+import 'package:flo_wallet/core/widgets/transactions_empty_message.dart';
 import 'package:flo_wallet/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flo_wallet/features/home/presentation/widgets/custom_recent_row.dart';
 import 'package:flo_wallet/core/widgets/transaction_list_view.dart';
@@ -92,12 +93,7 @@ class HomeView extends StatelessWidget {
   Widget _buildRecentBody(HomeState state) {
     if (state.transactions != null && state.user != null) {
       if (state.transactions!.isEmpty) {
-        return Center(
-          child: Text(
-            "You don't have any transactions yet",
-            style: ApptextStyle.titleStyle(size: 22),
-          ),
-        );
+        return TransactionsEmptyMessage();
       }
       return TransactionListView(
         currentUId: state.user!.uId,
