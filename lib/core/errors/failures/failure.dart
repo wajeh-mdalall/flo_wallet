@@ -2,8 +2,8 @@ import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
   final String errMessage;
-
   const Failure(this.errMessage);
+  bool get requiresSignIn => false;
   @override
   List<Object?> get props => [errMessage];
 }
@@ -20,4 +20,11 @@ class ServerFailure extends Failure {
 
 class TimeOutFailure extends Failure {
   const TimeOutFailure() : super("The request timed out. Please try again.");
+}
+
+class ImageFailure extends Failure {
+  const ImageFailure()
+    : super(
+        "Something went wrong while uploading your profile picture. Please try again.",
+      );
 }

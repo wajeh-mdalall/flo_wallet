@@ -19,17 +19,7 @@ extension FirestoreMapExtension on Map<String, dynamic> {
     }
     return 0;
   }
-
-  // 3. Convert String to TransactionType Enum
-  TransactionType toTransactionType(String key) {
-    final value = this[key] as String?;
-    return TransactionType.values.firstWhere(
-      (e) => e.name == value,
-      orElse: () => TransactionType.payment,
-    );
-  }
-
-  // 4. Convert String to TransactionStatus Enum
+  // 3. Convert String to TransactionStatus Enum
   TransactionStatus toTransactionStatus(String key) {
     final value = this[key] as String?;
     return TransactionStatus.values.firstWhere(

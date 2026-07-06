@@ -1,3 +1,5 @@
+import 'package:flo_wallet/core/widgets/custom_circular_progress_indicator.dart';
+import 'package:flo_wallet/core/extensions/theme_extension.dart';
 import '../constants.dart';
 import 'buttons/custom_back_button.dart';
 import 'package:flutter/material.dart';
@@ -26,16 +28,17 @@ class CustomInputScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: showBackButton
           ? AppBar(
               leading: const CustomBackButton(),
-              backgroundColor: AppColors.background,
+              backgroundColor: context.colors.background,
+              scrolledUnderElevation: 0,
             )
           : null,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(18, showBackButton ? 12 : 32, 18, 12),
+          padding: EdgeInsets.fromLTRB(16, showBackButton ? 6 : 32, 16, 0),
           child: CustomScrollView(
             slivers: [
               SliverFillRemaining(
@@ -45,34 +48,32 @@ class CustomInputScaffold extends StatelessWidget {
                   children: [
                     Text(title, style: ApptextStyle.titleStyle(size: 22)),
                     SizedBox(height: 12),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: AppColors.secondary.withAlpha(128),
-                        fontSize: 14,
-                      ),
-                    ),
+                    Text(subtitle, style: ApptextStyle.subtitleTextStyle()),
                     SizedBox(height: 20),
                     body,
                     Spacer(),
                     ElevatedButton(
                       style: AppStyles.primaryButtonStyle,
-                      onPressed: isEnabled ? onSubmit : null,
+                      onPressed: isEnabled
+                          ? () {
+                              FocusScope.of(context).unfocus();
+                              onSubmit();
+                            }
+                          : null,
                       child: isLoading
                           ? SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(
+                              child: CustomCircularProgressIndicator(
                                 strokeWidth: 2,
-                                color: AppColors.secondary,
                               ),
                             )
                           : Text(
                               titleButton ?? "Next",
-                              style: TextStyle(color: AppColors.secondary),
+                              style: TextStyle(color: context.colors.secondary),
                             ),
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 24),
                   ],
                 ),
               ),

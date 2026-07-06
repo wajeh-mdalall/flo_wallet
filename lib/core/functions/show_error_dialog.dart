@@ -1,41 +1,31 @@
+import 'package:flo_wallet/core/functions/show_base_dialog.dart';
+import 'package:flo_wallet/core/widgets/buttons/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../constants.dart';
 
 void showErrorDialog(
   BuildContext context,
-  String errMessage, {
+  String? errMessage, {
+  bool requiresSignIn = false,
   VoidCallback? onPressed,
 }) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        backgroundColor: AppColors.background,
-        actions: [
-          TextButton(
-            onPressed: () {
-              if (onPressed != null) {
-                onPressed();
-              } else {
-                context.pop();
-              }
-            },
-            child: Text(
-              "Try Again",
-              style: TextStyle(color: AppColors.primary),
-            ),
-          ),
-        ],
-        content: Text(
-          errMessage,
-          style: TextStyle(
-            color: AppColors.secondary,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-      );
-    },
+  showBaseDialog(
+    context,
+    title: "Error",
+    message: errMessage ?? "Unknown Error",
+    actions: [
+      CustomTextButton(
+        onPressed: () {
+          context.pop();
+          if (onPressed != null) {
+            onPressed();
+          } else {
+            if (requiresSignIn) context.go(AppConstants.kPhoneNumberView);
+          }
+        },
+        title: requiresSignIn ? "Sign In Again" : "Try Again",
+      ),
+    ],
   );
 }
