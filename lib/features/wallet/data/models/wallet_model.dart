@@ -1,5 +1,6 @@
+import 'package:flo_wallet/core/firestore_keys.dart';
+
 import '../../../../core/extensions/firestore_map_extension.dart';
-import '../../wallet_firestore_keys.dart';
 import '../../domain/entities/wallet_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -26,7 +27,9 @@ class WalletModel extends WalletEntity {
       isActive: true,
     );
   }
-  factory WalletModel.fromJson({required Map<String, dynamic> jsonWallet}) {
+  factory WalletModel.fromFirestore({
+    required Map<String, dynamic> jsonWallet,
+  }) {
     return WalletModel(
       uId: jsonWallet[WalletFirestoreKeys.uId] as String? ?? "",
       walletId: jsonWallet[WalletFirestoreKeys.walletId] as String? ?? "",
@@ -47,8 +50,8 @@ class WalletModel extends WalletEntity {
       WalletFirestoreKeys.balance: balance,
       WalletFirestoreKeys.currencyCode: currencyCode,
       WalletFirestoreKeys.currencySymbol: currencySymbol,
-      WalletFirestoreKeys.createdAt: Timestamp.fromDate(createdAt),
-      WalletFirestoreKeys.lastUpdated: Timestamp.fromDate(lastUpdated),
+      WalletFirestoreKeys.createdAt: FieldValue.serverTimestamp(),
+      WalletFirestoreKeys.lastUpdated: FieldValue.serverTimestamp(),
       WalletFirestoreKeys.isActive: isActive,
     };
   }

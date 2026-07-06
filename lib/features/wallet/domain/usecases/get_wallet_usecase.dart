@@ -3,12 +3,12 @@ import '../../../../core/errors/failures/failure.dart';
 import '../entities/wallet_entity.dart';
 import '../repositories/wallet_repository.dart';
 
-class GetWalletUsecase {
+class WatchWalletUsecase {
   final WalletRepository walletRepository;
 
- const GetWalletUsecase({required this.walletRepository});
+  const WatchWalletUsecase({required this.walletRepository});
 
-  Future<Either<Failure, WalletEntity>> call({required String uId}) async {
-    return await walletRepository.getWallet(uId: uId);
+  Stream<Either<Failure, WalletEntity>> call({required String uId})  {
+    return walletRepository.watchWallet(uId: uId);
   }
 }

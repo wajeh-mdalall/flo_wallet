@@ -1,5 +1,8 @@
+import 'package:flo_wallet/core/cache/cache_helper.dart';
+import 'package:flo_wallet/core/extensions/theme_extension.dart';
 import 'package:flo_wallet/core/functions/show_error_dialog.dart';
-
+import 'package:flo_wallet/core/injection/core_di.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import '../../../../core/constants.dart';
 import '../cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +15,29 @@ class AuthGateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is Authenticated) {
-          context.go(AppConstants.kHomeView, extra: state.authUser.uId);
+          FlutterNativeSplash.remove();
+          context.go(AppConstants.kHomeView);
         } else if (state is Unauthenticated) {
-          context.go(AppConstants.kPhoneNumberView);
+          final bool isFirstTime =
+              getIt<CacheHelper>().getData(key: AppConstants.isFirstTime) ??
+              true;
+          FlutterNativeSplash.remove();
+          if (isFirstTime) {
+            context.go(AppConstants.kOnboardingView);
+          } else {
+            context.go(AppConstants.kPhoneNumberView);
+          }
         } else if (state is AuthError) {
-          showErrorDialog(context, state.errMessage);
+          FlutterNativeSplash.remove();
+          showErrorDialog(context, state.errMessage,requiresSignIn: true);
         }
       },
-      child: Scaffold(body: Center(child: const CircularProgressIndicator())),
+      child: Scaffold(
+        backgroundColor: context.colors.primary,
+        body: SizedBox.shrink(),
+      ),
     );
   }
 }

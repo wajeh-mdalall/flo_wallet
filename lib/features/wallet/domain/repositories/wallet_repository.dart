@@ -4,5 +4,5 @@ import '../entities/wallet_entity.dart';
 
 abstract class WalletRepository {
   Future<Either<Failure, Unit>> createWallet({required String uId});
-  Future<Either<Failure, WalletEntity>> getWallet({required String uId});
+  Stream<Either<Failure, WalletEntity>> watchWallet({required String uId});
 }

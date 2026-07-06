@@ -1,12 +1,12 @@
+import 'package:flo_wallet/core/firestore_keys.dart';
+
 import '../../domain/entities/transactions_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../core/extensions/firestore_map_extension.dart';
-import '../../transaction_firestore_keys.dart';
 
 class TransactionModel extends TransactionEntity {
   const TransactionModel({
     required super.id,
-    required super.type,
     required super.status,
     required super.amount,
     required super.timestamp,
@@ -17,13 +17,12 @@ class TransactionModel extends TransactionEntity {
     required super.title,
   });
 
-  factory TransactionModel.fromJson({
+  factory TransactionModel.fromFirestore({
     required Map<String, dynamic> jsonTransaction,
     required String docId,
   }) {
     return TransactionModel(
       id: docId,
-      type: jsonTransaction.toTransactionType(TransactionFirestoreKeys.type),
       status: jsonTransaction.toTransactionStatus(
         TransactionFirestoreKeys.status,
       ),
@@ -42,10 +41,9 @@ class TransactionModel extends TransactionEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      TransactionFirestoreKeys.type: type.name,
       TransactionFirestoreKeys.status: status.name,
       TransactionFirestoreKeys.amount: amount,
-      TransactionFirestoreKeys.timestamp: Timestamp.fromDate(timestamp),
+      TransactionFirestoreKeys.timestamp: FieldValue.serverTimestamp(),
       TransactionFirestoreKeys.senderId: senderId,
       TransactionFirestoreKeys.senderName: senderName,
       TransactionFirestoreKeys.receiverId: receiverId,

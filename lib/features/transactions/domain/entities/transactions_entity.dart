@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 class TransactionEntity extends Equatable {
   final String id;
-  final TransactionType type;
   final TransactionStatus status;
   final int amount;
   final DateTime timestamp;
@@ -14,7 +13,6 @@ class TransactionEntity extends Equatable {
 
   const TransactionEntity({
     required this.id,
-    required this.type,
     required this.status,
     required this.amount,
     required this.timestamp,
@@ -28,7 +26,6 @@ class TransactionEntity extends Equatable {
   @override
   List<Object?> get props => [
     id,
-    type,
     status,
     amount,
     timestamp,
@@ -42,11 +39,4 @@ class TransactionEntity extends Equatable {
 
 enum TransactionStatus { success, pending, failure, cancelled }
 
-enum TransactionType {
-  transferSent,
-  transferReceived,
-  withdrawal,
-  deposit,
-  payment,
-  refund,
-}
+

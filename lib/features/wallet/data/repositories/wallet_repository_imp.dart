@@ -30,17 +30,13 @@ class WalletRepositoryImp implements WalletRepository {
   }
 
   @override
-  Future<Either<Failure, WalletEntity>> getWallet({required String uId}) async {
-    if (!await networkInfo.isConnected) {
-      return left(OfflineFailure());
-    }
-    try {
-      final WalletModel walletModel = await remoteDataSource.getWallet(
-        uId: uId,
-      );
-      return right(walletModel);
-    } catch (e) {
-      return left(ExceptionHandler.exceptionToFailure(e));
-    }
+  Stream<Either<Failure, WalletEntity>> watchWallet({
+    required String uId,
+  }) async* {
+    yield* remoteDataSource.watchWallet(uId: uId).map<Either<Failure, WalletEntity>>(
+    (walletModel) => right(walletModel),
+  ).handleError((e) {
+    return left(ExceptionHandler.exceptionToFailure(e));
+  });
   }
 }

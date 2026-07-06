@@ -12,7 +12,7 @@ abstract class AuthRepository {
     required String verificationId,
     required String smsCode,
   });
-  // ! auto-login
+  // ! auto-SignIn
   Future<Either<Failure, AuthUserEntity?>> getCurrentUser();
   Future<Either<Failure, Unit>> signOut();
 }

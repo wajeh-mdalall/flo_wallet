@@ -63,7 +63,7 @@ class AuthRepositoryImp implements AuthRepository {
             final AuthUserModel user = await remoteDataSource
                 .signInWithCredential(credential);
             await cacheHelper.saveData(
-              key: AppConstants.uidKey,
+              key: AppConstants.uIdKey,
               value: user.uId,
             );
 
@@ -95,7 +95,7 @@ class AuthRepositoryImp implements AuthRepository {
         verificationId: verificationId,
         smsCode: smsCode,
       );
-      await cacheHelper.saveData(key: AppConstants.uidKey, value: user.uId);
+      await cacheHelper.saveData(key: AppConstants.uIdKey, value: user.uId);
       return right(user);
     } catch (e) {
       return left(ExceptionHandler.exceptionToFailure(e));
@@ -119,7 +119,7 @@ class AuthRepositoryImp implements AuthRepository {
   Future<Either<Failure, Unit>> signOut() async {
     try {
       await remoteDataSource.signOut();
-      await cacheHelper.removeData(key: AppConstants.uidKey);
+      await cacheHelper.removeData(key: AppConstants.uIdKey);
       return right(unit);
     } catch (e) {
       return left(ExceptionHandler.exceptionToFailure(e));

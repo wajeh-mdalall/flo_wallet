@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import '../../../../core/constants.dart';
+import 'package:flo_wallet/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class OtpResendWidget extends StatefulWidget {
@@ -51,9 +50,9 @@ class _OtpResendWidgetState extends State<OtpResendWidget> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Didn't receive the code? ",
-          style: TextStyle(color: AppColors.secondary),
+          style: TextStyle(color: context.colors.secondary),
         ),
         TextButton(
           onPressed: _canResend
@@ -65,7 +64,7 @@ class _OtpResendWidgetState extends State<OtpResendWidget> {
           child: Text(
             _canResend ? "Resend Code" : "Resend in $_counter s",
             style: TextStyle(
-              color: _canResend ? AppColors.primary : Colors.grey,
+              color: _canResend ? context.colors.primary : Colors.grey,
               fontWeight: FontWeight.bold,
             ),
           ),

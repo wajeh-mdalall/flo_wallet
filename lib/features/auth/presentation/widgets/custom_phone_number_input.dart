@@ -1,3 +1,4 @@
+import 'package:flo_wallet/core/extensions/theme_extension.dart';
 import '../../../../core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -18,7 +19,7 @@ class CustomPhoneInputWidget extends StatelessWidget {
     return InternationalPhoneNumberInput(
       onInputValidated: onInputValidated,
       onInputChanged: onInputChanged,
-      cursorColor: AppColors.primary,
+      cursorColor: context.colors.primary,
       textStyle: ApptextStyle.inputTextStyle(),
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.DROPDOWN,

@@ -7,7 +7,7 @@ import '../data/repositories/wallet_repository_imp.dart';
 import '../domain/repositories/wallet_repository.dart';
 import '../domain/usecases/create_wallet_usecase.dart';
 import '../domain/usecases/get_wallet_usecase.dart';
-import '../presentation/cubit/wallet_cubit.dart';
+
 
 void setupWalletDI() {
   // Data Source
@@ -28,14 +28,7 @@ void setupWalletDI() {
     () => CreateWalletUsecase(walletRepository: getIt<WalletRepository>()),
   );
   getIt.registerLazySingleton(
-    () => GetWalletUsecase(walletRepository: getIt<WalletRepository>()),
+    () => WatchWalletUsecase(walletRepository: getIt<WalletRepository>()),
   );
 
-  //cubit
-  getIt.registerFactory(
-    () => WalletCubit(
-      createWalletUsecase: getIt<CreateWalletUsecase>(),
-      getWalletUsecase: getIt<GetWalletUsecase>(),
-    ),
-  );
 }

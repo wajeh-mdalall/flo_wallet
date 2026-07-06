@@ -30,8 +30,8 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           context.go(
             AppConstants.kVerifyOtpView,
             extra: {
-              "verificationId": state.data.verificationId,
-              "phoneNumber": state.data.phoneNumber,
+              AppExtraKeys.kVerificationId: state.data.verificationId,
+              AppExtraKeys.kPhoneNumber: state.data.phoneNumber,
             },
           );
         }
@@ -40,6 +40,7 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
         }
       },
       builder: (context, state) => CustomInputScaffold(
+        showBackButton: false,
         title: "Enter your mobile number",
         subtitle: "A verification code will be sent to this number.",
         body: CustomPhoneInputWidget(
@@ -58,7 +59,6 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
         ),
 
         onSubmit: () {
-          FocusScope.of(context).unfocus();
           context.read<AuthCubit>().sendPhoneNumber(phoneNumber: phoneNumber!);
         },
         isEnabled: isValidate,
