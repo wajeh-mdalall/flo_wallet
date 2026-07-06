@@ -1,16 +1,53 @@
-# flo_wallet
+# 📱 Flo Wallet
 
-A new Flutter project.
+A secure, modern, and scalable Digital Wallet mobile application built using **Flutter** and **Firebase**. This project strictly adheres to **Clean Architecture** principles and utilizes advanced state management to ensure a robust and maintainable codebase.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+- **Secure Authentication:** Phone number registration with dynamic OTP verification flow.
+- **Wallet Management:** Real-time balance updates and account state tracking.
+- **Transaction History:** Comprehensive ledger of all incoming and outgoing financial transactions.
+- **QR Code Scanner:** Fast and secure peer-to-peer money transfers via QR code scanning.
+- **Modern UI/UX:** Responsive layouts, custom buttons, dynamic theme support, and sleek onboarding screens.
+- **Advanced Exception Handling:** Secure remote data sources with robust mapping of server and Firebase exceptions.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📸 Media & Assets
+
+- **App Screenshots:** All visual previews, user interface flows, and application screenshots are organized and available in the `/screenshots` directory at the root of this repository.
+
+---
+
+## 🏗️ Architecture & Tech Stack
+
+This project is built using **Clean Architecture** split into three distinct layers to ensure separation of concerns and high testability:
+
+- **Data Layer:** Handles API/Firebase communication, model parsing (`TransactionModel`, `WalletModel`), and remote data sources implementation.
+- **Domain Layer:** Contains business logic, entities, and use cases (e.g., `GetWalletUseCase`, `ConfirmOtpUseCase`).
+- **Presentation Layer:** Built using UI views and **BLoC/Cubit** for reactive and clean state management.
+
+### Key Technologies:
+- **Framework:** Flutter & Dart
+- **State Management:** BLoC / Cubit
+- **Backend/Database:** Firebase Auth & Cloudinary
+- **Dependency Injection:** Service Locator via GetIt
+- **Routing:** Declarative App Router
+
+---
+
+## 📲 Download & Try the App
+
+You can download the production-ready application binary directly from the GitHub Releases section to test it live on your Android device.
+
+1. Go to the **Releases** section on the right sidebar of this repository.
+2. Download the `flo_wallet.apk`.
+3. Install and run it on your smartphone.
+
+---
+
+## 🔒 Security & Best Practices
+
+- **Configuration Secrets:** Google Services configuration files (`google-services.json`/`GoogleService-Info.plist`) and local environment configuration variables are completely secured and untracked via `.gitignore`.
