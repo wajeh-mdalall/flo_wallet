@@ -17,7 +17,7 @@ void showQrBottomSheet(
         Text(
           "Let the sender scan this QR code to receive money instantly",
           textAlign: TextAlign.center,
-          style: ApptextStyle.hintTextStyle(),
+          style: AppTextStyle.hintTextStyle(),
         ),
         const SizedBox(height: 20),
         QrCodeWidget(uId: uId, name: name, profileImage: profileImageUrl),

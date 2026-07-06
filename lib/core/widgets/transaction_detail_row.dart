@@ -26,7 +26,7 @@ class TransactionDetailRow extends StatelessWidget {
           children: [
             Text(
               title,
-              style: ApptextStyle.titleStyle(size: 14, useAlpha: true),
+              style: AppTextStyle.titleStyle(size: 14, useAlpha: true),
             ),
             Flexible(
               child: isId
@@ -34,16 +34,13 @@ class TransactionDetailRow extends StatelessWidget {
                   : Text(
                       value,
                       overflow: TextOverflow.ellipsis,
-                      style: ApptextStyle.titleStyle(size: 14),
+                      style: AppTextStyle.titleStyle(size: 14),
                     ),
             ),
           ],
         ),
         if (withDivider)
-          Divider(
-            height: 24,
-            color: context.colors.secondary.withAlpha(60),
-          ),
+          Divider(height: 24, color: context.colors.secondary.withAlpha(60)),
       ],
     );
   }

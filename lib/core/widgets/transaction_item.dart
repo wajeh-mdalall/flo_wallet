@@ -31,17 +31,17 @@ class TransactionItem extends StatelessWidget {
         );
       },
       leading: CustomCircleIcon(icon: iconDesign.icon, color: iconDesign.color),
-      title: Text(transaction.title, style: ApptextStyle.titleStyle(size: 16)),
+      title: Text(transaction.title, style: AppTextStyle.titleStyle(size: 16)),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 4.0),
         child: Text(
           DateHelper.formatDate(transaction.timestamp),
-          style: ApptextStyle.subtitleTextStyle(),
+          style: AppTextStyle.subtitleTextStyle(),
         ),
       ),
       trailing: Text(
         "$operation\$${transaction.amount}",
-        style: ApptextStyle.titleStyle(size: 16),
+        style: AppTextStyle.titleStyle(size: 16),
       ),
     );
   }

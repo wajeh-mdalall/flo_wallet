@@ -11,9 +11,9 @@ class ErrorTextWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Text(
-         errMessage?? "Failed to access your information",
+          errMessage ?? "Failed to access your information",
           textAlign: TextAlign.center,
-          style: ApptextStyle.titleStyle(size: 18),
+          style: AppTextStyle.titleStyle(size: 18),
         ),
       ),
     );

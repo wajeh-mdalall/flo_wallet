@@ -17,12 +17,11 @@ class BuildSectionWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(title, style: ApptextStyle.titleStyle(size: 14)),
+          child: Text(title, style: AppTextStyle.titleStyle(size: 14)),
         ),
         const SizedBox(height: 12),
         child,
       ],
     );
-    
   }
 }

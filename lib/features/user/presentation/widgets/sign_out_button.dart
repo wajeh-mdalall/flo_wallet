@@ -26,7 +26,7 @@ class SignOutButton extends StatelessWidget {
             },
           );
         },
-        child: Text("Sign Out", style: ApptextStyle.titleStyle(size: 14)),
+        child: Text("Sign Out", style: AppTextStyle.titleStyle(size: 14)),
       ),
     );
   }

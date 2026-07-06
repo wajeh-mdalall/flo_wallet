@@ -55,7 +55,7 @@ class ProfileView extends StatelessWidget {
                       user != null
                           ? Text(
                               user.name,
-                              style: ApptextStyle.titleStyle(size: 22),
+                              style: AppTextStyle.titleStyle(size: 22),
                             )
                           : SizedBox(height: 30),
                     ],
@@ -105,7 +105,7 @@ class ProfileView extends StatelessWidget {
   List<Widget> _buildProfileDetails(BuildContext context, HomeState state) {
     final bool isDarkMode = context.watch<ThemeCubit>().state.isDarkMode;
     final user = state.user;
-  
+
     if (user != null) {
       return [
         DetailTile(
@@ -127,7 +127,8 @@ class ProfileView extends StatelessWidget {
         ),
         SignOutButton(),
       ];
-    }  if (state.status == HomeStatus.loading) {
+    }
+    if (state.status == HomeStatus.loading) {
       return const [CustomCircularProgressIndicator()];
     }
     return [ErrorTextWidget(errMessage: state.errMessage)];

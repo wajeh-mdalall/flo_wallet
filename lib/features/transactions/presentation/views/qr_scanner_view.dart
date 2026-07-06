@@ -97,7 +97,7 @@ class _QrScannerViewState extends State<QrScannerView> {
               left: 20,
               child: Text(
                 'Scan QR Code',
-                style: ApptextStyle.titleStyle(
+                style: AppTextStyle.titleStyle(
                   size: 22,
                   color: context.colors.background,
                 ),
@@ -109,7 +109,7 @@ class _QrScannerViewState extends State<QrScannerView> {
               child: Text(
                 "Align the QR code within the frame to scan",
                 textAlign: TextAlign.center,
-                style: ApptextStyle.subtitleTextStyle(
+                style: AppTextStyle.subtitleTextStyle(
                   color: context.colors.background,
                 ),
               ),

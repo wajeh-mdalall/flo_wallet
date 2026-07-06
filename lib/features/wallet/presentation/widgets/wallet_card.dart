@@ -50,7 +50,7 @@ class WalletCard extends StatelessWidget {
             children: [
               Text(
                 wallet!.currencyCode,
-                style: ApptextStyle.titleStyle(
+                style: AppTextStyle.titleStyle(
                   size: 16,
                 ).copyWith(letterSpacing: 1.5),
               ),
@@ -66,7 +66,7 @@ class WalletCard extends StatelessWidget {
                 ),
                 child: Text(
                   isActive ? 'Active' : 'Inactive',
-                  style: ApptextStyle.titleStyle(
+                  style: AppTextStyle.titleStyle(
                     size: 12,
                     color: activeStatusColor,
                   ),
@@ -77,11 +77,11 @@ class WalletCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Current Balance', style: ApptextStyle.hintTextStyle()),
+              Text('Current Balance', style: AppTextStyle.hintTextStyle()),
               const SizedBox(height: 4),
               Text(
                 "${wallet!.currencySymbol} ${wallet!.balance}",
-                style: ApptextStyle.titleStyle(size: 38),
+                style: AppTextStyle.titleStyle(size: 38),
               ),
             ],
           ),

@@ -20,9 +20,9 @@ class OnboardingPageItem extends StatelessWidget {
             height: MediaQuery.sizeOf(context).height * 0.35,
           ),
           const SizedBox(height: 40),
-          Text(pageModel.title, style: ApptextStyle.titleStyle(size: 18)),
+          Text(pageModel.title, style: AppTextStyle.titleStyle(size: 18)),
           const SizedBox(height: 16),
-          Text(pageModel.description, style: ApptextStyle.subtitleTextStyle()),
+          Text(pageModel.description, style: AppTextStyle.subtitleTextStyle()),
         ],
       ),
     );

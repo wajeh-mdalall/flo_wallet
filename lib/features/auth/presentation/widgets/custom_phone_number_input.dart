@@ -20,7 +20,7 @@ class CustomPhoneInputWidget extends StatelessWidget {
       onInputValidated: onInputValidated,
       onInputChanged: onInputChanged,
       cursorColor: context.colors.primary,
-      textStyle: ApptextStyle.inputTextStyle(),
+      textStyle: AppTextStyle.inputTextStyle(),
       selectorConfig: const SelectorConfig(
         selectorType: PhoneInputSelectorType.DROPDOWN,
         setSelectorButtonAsPrefixIcon: true,
@@ -35,7 +35,7 @@ class CustomPhoneInputWidget extends StatelessWidget {
         hintText: "Mobile number",
         errorText: errorText,
       ),
-      selectorTextStyle: ApptextStyle.inputTextStyle(),
+      selectorTextStyle: AppTextStyle.inputTextStyle(),
     );
   }
 }

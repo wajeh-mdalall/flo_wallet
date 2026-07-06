@@ -26,12 +26,12 @@ void showTransactionDetails(
         const SizedBox(height: 16),
         Text(
           isReceived ? "Money Received" : "Money Sent",
-          style: ApptextStyle.titleStyle(size: 16, useAlpha: true),
+          style: AppTextStyle.titleStyle(size: 16, useAlpha: true),
         ),
         const SizedBox(height: 8),
         Text(
           "${isReceived ? '+' : '-'}\$${transaction.amount}",
-          style: ApptextStyle.titleStyle(size: 32),
+          style: AppTextStyle.titleStyle(size: 32),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 24),

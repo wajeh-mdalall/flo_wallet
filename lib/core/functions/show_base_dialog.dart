@@ -16,12 +16,12 @@ void showBaseDialog(
         backgroundColor: context.colors.background,
         title: Text(
           title,
-          style: ApptextStyle.titleStyle(
+          style: AppTextStyle.titleStyle(
             size: 20,
             color: context.colors.primary,
           ),
         ),
-        content: Text(message, style: ApptextStyle.titleStyle(size: 16)),
+        content: Text(message, style: AppTextStyle.titleStyle(size: 16)),
         actions: actions,
       );
     },

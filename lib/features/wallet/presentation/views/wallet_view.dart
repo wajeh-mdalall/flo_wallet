@@ -42,7 +42,7 @@ class WalletView extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 4),
                             child: Text(
                               'Information',
-                              style: ApptextStyle.titleStyle(size: 22),
+                              style: AppTextStyle.titleStyle(size: 22),
                             ),
                           ),
                           const SizedBox(height: 30),

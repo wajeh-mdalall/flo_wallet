@@ -37,7 +37,7 @@ class ReceiverInfoCard extends StatelessWidget {
                 Text(
                   name,
                   maxLines: 1,
-                  style: ApptextStyle.titleStyle(
+                  style: AppTextStyle.titleStyle(
                     size: 18,
                   ).copyWith(fontFamily: 'monospace'),
                   overflow: TextOverflow.clip,

@@ -46,9 +46,9 @@ class CustomInputScaffold extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: ApptextStyle.titleStyle(size: 22)),
+                    Text(title, style: AppTextStyle.titleStyle(size: 22)),
                     SizedBox(height: 12),
-                    Text(subtitle, style: ApptextStyle.subtitleTextStyle()),
+                    Text(subtitle, style: AppTextStyle.subtitleTextStyle()),
                     SizedBox(height: 20),
                     body,
                     Spacer(),

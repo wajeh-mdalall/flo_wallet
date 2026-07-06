@@ -32,14 +32,14 @@ class UserBalanceHeader extends StatelessWidget {
           Center(
             child: Text(
               "$currencySymbol $balance",
-              style: ApptextStyle.titleStyle(size: 30),
+              style: AppTextStyle.titleStyle(size: 30),
             ),
           ),
           SizedBox(height: 8),
           Center(
             child: Text(
               "Available Balance",
-              style: ApptextStyle.titleStyle(size: 12, useAlpha: true),
+              style: AppTextStyle.titleStyle(size: 12, useAlpha: true),
             ),
           ),
         ],

@@ -27,11 +27,11 @@ class CustomUserListTile extends StatelessWidget {
           ),
           title: Text(
             "Welcome back",
-            style: ApptextStyle.titleStyle(size: 10, useAlpha: true),
+            style: AppTextStyle.titleStyle(size: 10, useAlpha: true),
           ),
           subtitle: Text(
             name,
-            style: ApptextStyle.titleStyle(
+            style: AppTextStyle.titleStyle(
               size: 14,
             ).copyWith(fontFamily: 'monospace'),
           ),

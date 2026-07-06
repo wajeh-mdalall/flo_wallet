@@ -38,11 +38,11 @@ class DetailTile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: ApptextStyle.titleStyle(size: 14)),
+                    Text(title, style: AppTextStyle.titleStyle(size: 14)),
                     const SizedBox(height: 4),
                     Text(
                       value,
-                      style: ApptextStyle.titleStyle(size: 14, useAlpha: true),
+                      style: AppTextStyle.titleStyle(size: 14, useAlpha: true),
                     ),
                   ],
                 ),

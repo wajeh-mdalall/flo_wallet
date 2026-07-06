@@ -39,7 +39,7 @@ abstract class AppExtraKeys {
   static const String kUser = "user";
 }
 
-abstract class ApptextStyle {
+abstract class AppTextStyle {
   static Color get textColor => AppStyles.themeColorsNotifier.value.secondary;
   static TextStyle hintTextStyle() {
     return TextStyle(
@@ -79,7 +79,7 @@ abstract class AppStyles {
 
   // themes
   static ThemeData get themeData => ThemeData(
-    textTheme: TextTheme(bodyLarge: ApptextStyle.inputTextStyle()),
+    textTheme: TextTheme(bodyLarge: AppTextStyle.inputTextStyle()),
     canvasColor: backgroundColor,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: primaryColor,
@@ -111,7 +111,7 @@ abstract class AppStyles {
       errorText: errorText,
       errorStyle: TextStyle(color: primaryColor),
       hintText: hintText,
-      hintStyle: ApptextStyle.hintTextStyle(),
+      hintStyle: AppTextStyle.hintTextStyle(),
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: const EdgeInsets.only(left: 10, right: 4),

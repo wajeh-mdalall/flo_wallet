@@ -45,7 +45,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               onPressed: _completeOnboarding,
               child: Text(
                 'Skip',
-                style: ApptextStyle.titleStyle(
+                style: AppTextStyle.titleStyle(
                   size: 16,
                   color: context.colors.primary,
                 ),

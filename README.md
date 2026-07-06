@@ -32,6 +32,8 @@ This project is built using **Clean Architecture** split into three distinct lay
 ### Key Technologies:
 - **Framework:** Flutter & Dart
 - **State Management:** BLoC / Cubit
+- **Asynchronous Data:** Reactive Streams (StreamBuilder / Stream-driven BLoCs) for real-time synchronization.
+- **Data Optimization:** Custom Pagination logic for loading large transaction histories seamlessly without draining device memory.
 - **Backend/Database:** Firebase Auth & Cloudinary
 - **Dependency Injection:** Service Locator via GetIt
 - **Routing:** Declarative App Router

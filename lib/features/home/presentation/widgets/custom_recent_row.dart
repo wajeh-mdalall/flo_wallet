@@ -14,7 +14,7 @@ class CustomRecentRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
         children: [
-          Text("Recent", style: ApptextStyle.titleStyle(size: 20)),
+          Text("Recent", style: AppTextStyle.titleStyle(size: 20)),
           IconButton(
             onPressed: () {
               StatefulNavigationShell.of(context).goBranch(1);

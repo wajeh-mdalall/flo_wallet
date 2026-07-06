@@ -22,7 +22,7 @@ class CustomTextButton extends StatelessWidget {
       },
       child: Text(
         title,
-        style: ApptextStyle.titleStyle(size: 14, color: context.colors.primary),
+        style: AppTextStyle.titleStyle(size: 14, color: context.colors.primary),
       ),
     );
   }

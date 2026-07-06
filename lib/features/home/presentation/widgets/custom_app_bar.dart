@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       centerTitle: true,
       title: title != null
-          ? Text(title, style: ApptextStyle.titleStyle(size: 24))
+          ? Text(title, style: AppTextStyle.titleStyle(size: 24))
           : null,
     );
   }

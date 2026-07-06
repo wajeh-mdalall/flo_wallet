@@ -32,7 +32,7 @@ class _CountryDropdownFormFieldState extends State<CountryDropdownFormField> {
         }
         return null;
       },
-      hint: Text("Country", style: ApptextStyle.hintTextStyle()),
+      hint: Text("Country", style: AppTextStyle.hintTextStyle()),
       decoration: AppStyles.customTextFieldDecoration(
         prefixIcon: Icons.public,
         contentPaddingHorizontal: 0,
@@ -45,7 +45,7 @@ class _CountryDropdownFormFieldState extends State<CountryDropdownFormField> {
           value: country,
           child: Text(
             "${country.flagEmoji}  ${country.name}",
-            style: ApptextStyle.titleStyle(size: 14),
+            style: AppTextStyle.titleStyle(size: 14),
             overflow: TextOverflow.ellipsis,
           ),
         );
