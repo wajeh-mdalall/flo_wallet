@@ -16,7 +16,6 @@ class ImageUploadHelperImp implements ImageUploadHelper {
       'https://api.cloudinary.com/v1_1/$cloudName/image/upload',
     );
 
-    
     final request = http.MultipartRequest('POST', url)
       ..fields['upload_preset'] = uploadPreset
       ..fields['public_id'] = path

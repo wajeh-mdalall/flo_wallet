@@ -59,7 +59,11 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
         ),
 
         onSubmit: () {
-          context.read<AuthCubit>().sendPhoneNumber(phoneNumber: phoneNumber!);
+          if (phoneNumber != null) {
+            context.read<AuthCubit>().sendPhoneNumber(
+              phoneNumber: phoneNumber!,
+            );
+          }
         },
         isEnabled: isValidate,
         isLoading: state is AuthLoading,

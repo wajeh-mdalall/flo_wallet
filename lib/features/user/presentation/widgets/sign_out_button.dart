@@ -2,8 +2,10 @@ import 'package:flo_wallet/core/constants.dart';
 import 'package:flo_wallet/core/extensions/theme_extension.dart';
 import 'package:flo_wallet/core/functions/show_confirmation_dialog.dart';
 import 'package:flo_wallet/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:flo_wallet/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({super.key});
@@ -22,7 +24,9 @@ class SignOutButton extends StatelessWidget {
             confirmText: "Sign Out",
             "Are you sure you want to sign out of your account?",
             onConfirm: () {
+              context.read<HomeCubit>().resetState();
               context.read<AuthCubit>().signOut();
+              context.go(AppConstants.kPhoneNumberView);
             },
           );
         },

@@ -11,7 +11,8 @@ class TransactionsEmptyMessage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
           "You don't have any transactions yet",
-          style: AppTextStyle.titleStyle(size: 22),
+          style: AppTextStyle.titleStyle(size: 20),
+          textAlign: TextAlign.center,
         ),
       ),
     );

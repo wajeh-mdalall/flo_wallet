@@ -6,7 +6,7 @@ import 'package:flo_wallet/features/user/domain/entities/user_entity.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/functions/show_error_dialog.dart';
 import '../../../../core/widgets/custom_input_scaffold.dart';
-import '../cubit/complete_profile_cubit/user_profile_management_cubit.dart';
+import '../cubit/user_profile_management_cubit/user_profile_management_cubit.dart';
 import '../widgets/complete_profile_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

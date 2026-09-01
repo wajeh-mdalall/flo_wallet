@@ -3,10 +3,12 @@ import 'package:flo_wallet/core/extensions/string_extension.dart';
 import 'package:flo_wallet/core/functions/show_confirmation_dialog.dart';
 import 'package:flo_wallet/core/functions/show_error_dialog.dart';
 import 'package:flo_wallet/core/widgets/custom_input_scaffold.dart';
+import 'package:flo_wallet/features/auth/presentation/widgets/custom_phone_number_input.dart';
 import 'package:flo_wallet/features/user/presentation/cubit/user_search_cubit/user_search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class UserSearchView extends StatefulWidget {
   final String currentUserId;
@@ -15,7 +17,8 @@ class UserSearchView extends StatefulWidget {
   const UserSearchView({
     super.key,
     required this.currentUserId,
-    required this.currentUserName, required this.currentUserPhoneNumber,
+    required this.currentUserName,
+    required this.currentUserPhoneNumber,
   });
 
   @override
@@ -23,15 +26,8 @@ class UserSearchView extends StatefulWidget {
 }
 
 class _UserSearchViewState extends State<UserSearchView> {
-  final TextEditingController _searchController = TextEditingController();
   bool isValidate = false;
   String? searchedUserPhoneNumber;
-  String? errorText;
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,36 +60,26 @@ class _UserSearchViewState extends State<UserSearchView> {
         return CustomInputScaffold(
           title: "Search for User",
           subtitle: "Enter the phone number to find the user.",
-          body: TextField(
-            controller: _searchController,
-            keyboardType: TextInputType.phone,
-            onChanged: (value) {
-              final int lengthNumber = value.trim().length;
-              if (lengthNumber == 13) {
-                setState(() {
-                  errorText = null;
-                  isValidate = true;
-                  searchedUserPhoneNumber = value;
-                });
-              } else {
-                setState(() {
-                  isValidate = false;
-                  errorText = "Please enter a valid phone number";
-                });
-              }
+          body: CustomPhoneInputWidget(
+            onInputValidated: (value) {
+              setState(() {
+                isValidate = value;
+              });
             },
-            decoration: AppStyles.customTextFieldDecoration(
-              prefixIcon: Icons.search,
-              hintText: "+971 XX XXX XXX",
-              errorText: errorText,
-            ),
+            onInputChanged: (PhoneNumber number) {
+              searchedUserPhoneNumber = number.phoneNumber;
+            },
+            errorText: (!isValidate && searchedUserPhoneNumber != null)
+                ? "Please enter a valid phone number"
+                : null,
           ),
-
           onSubmit: () {
-            context.read<UserSearchCubit>().findUserByPhone(
-              currentUserPhoneNumber: widget.currentUserPhoneNumber,
-              phoneNumber: searchedUserPhoneNumber!,
-            );
+            if (searchedUserPhoneNumber != null) {
+              context.read<UserSearchCubit>().findUserByPhone(
+                currentUserPhoneNumber: widget.currentUserPhoneNumber,
+                phoneNumber: searchedUserPhoneNumber!,
+              );
+            }
           },
           titleButton: "Search",
           isEnabled: isValidate,

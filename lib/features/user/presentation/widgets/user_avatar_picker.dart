@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flo_wallet/features/user/presentation/widgets/image_source_option_tile.dart';
+
 import '../../../../core/widgets/user_avatar_display.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -38,8 +40,9 @@ class _UserAvatarPickerState extends State<UserAvatarPicker> {
     }
   }
 
-  void _showPickerOptions() {
+  void _showPickerOptions(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: context.colors.background,
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -47,14 +50,14 @@ class _UserAvatarPickerState extends State<UserAvatarPicker> {
       builder: (context) => SafeArea(
         child: Wrap(
           children: [
-            ListTile(
-              leading: const Icon(Icons.photo_library),
-              title: const Text('Gallery'),
+            ImageSourceOptionTile(
+              title: "Gallery",
+              icon: Icons.photo_library,
               onTap: () => _pickImage(ImageSource.gallery),
             ),
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: const Text('Camera'),
+            ImageSourceOptionTile(
+              title: "Camera",
+              icon: Icons.camera_alt,
               onTap: () => _pickImage(ImageSource.camera),
             ),
           ],
@@ -74,11 +77,13 @@ class _UserAvatarPickerState extends State<UserAvatarPicker> {
             imageUrl: widget.initialImageUrl,
           ),
           GestureDetector(
-            onTap: _showPickerOptions,
+            onTap: () {
+              _showPickerOptions(context);
+            },
             child: CircleAvatar(
               radius: 18,
               backgroundColor: context.colors.secondary,
-              child:  Icon(
+              child: Icon(
                 Icons.camera_alt,
                 size: 18,
                 color: context.colors.background,

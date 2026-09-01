@@ -98,10 +98,12 @@ class UserProfileManagementCubit extends Cubit<UserProfileManagementState> {
 
   Future<String?> _handleImageUpload(File? image, String uId) async {
     if (image == null) return null;
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final String path = 'users_avatars/${uId}_$timestamp';
 
     final Either<Failure, String> imageResult = await uploadProfileImageUsecase(
       file: image,
-      path: 'users_avatars/$uId.jpg',
+      path: path,
     );
 
     return imageResult.fold((failure) {
