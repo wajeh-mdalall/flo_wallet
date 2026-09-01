@@ -98,6 +98,7 @@ class _SendMoneyAmountViewState extends State<SendMoneyAmountView> {
                 BuildSectionWidget(
                   title: "Amount",
                   child: TextFormField(
+                    maxLength: 10,
                     controller: _amountController,
                     keyboardType: const TextInputType.numberWithOptions(
                       // decimal: true,
@@ -122,10 +123,11 @@ class _SendMoneyAmountViewState extends State<SendMoneyAmountView> {
                 BuildSectionWidget(
                   title: "Title",
                   child: TextFormField(
+                    maxLength: 10,
                     controller: _titleController,
                     keyboardType: TextInputType.text,
                     decoration: AppStyles.customTextFieldDecoration(
-                      hintText: 'e.g., Dinner, Rent, Gift',
+                      hintText: ' Dinner, Rent, Gift,e.g.',
                       prefixIcon: Icons.description_outlined,
                     ),
                   ),

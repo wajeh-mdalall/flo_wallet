@@ -32,9 +32,19 @@ class HomeCubit extends Cubit<HomeState> {
     required this.updateFcmTokenUsecase,
   }) : super(HomeState.initial());
 
-  Future<void> fetchHomeData({required String uId}) async {
-    if (state.user?.uId == uId && state.status == HomeStatus.success) return;
-    emit(state.copyWith(status: HomeStatus.loading));
+  Future<void> fetchHomeData({
+    required String uId,
+    bool forceRefresh = false,
+  }) async {
+    if (state.user?.uId == uId &&
+        state.status == HomeStatus.success &&
+        !forceRefresh) {
+      return;
+    }
+
+    if (!forceRefresh) {
+      emit(state.copyWith(status: HomeStatus.loading));
+    }
 
     // Fetch static user data once via Future
     final Either<Failure, UserEntity> userResult = await getUserDataUsecase(
@@ -54,7 +64,9 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(user: user));
         NotificationService.syncUserFcmToken(uId, updateFcmTokenUsecase);
         // Start dual live sync for wallet and transactions upon successful user fetch
-        _startListeningToLiveUpdates(uId: uId);
+        if (_walletSubscription == null || _transactionsSubscription == null) {
+          _startListeningToLiveUpdates(uId: uId);
+        }
       },
     );
   }

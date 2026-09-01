@@ -99,7 +99,10 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
     return BlocConsumer<UserProfileManagementCubit, UserProfileManagementState>(
       listener: (context, state) {
         if (state is ProfileUpdateSuccess) {
-          getIt<HomeCubit>().fetchHomeData(uId: widget.userEntity!.uId);
+          getIt<HomeCubit>().fetchHomeData(
+            uId: widget.userEntity!.uId,
+            forceRefresh: true,
+          );
           context.pop();
         }
         if (state is ProfileSetupSuccess) {
