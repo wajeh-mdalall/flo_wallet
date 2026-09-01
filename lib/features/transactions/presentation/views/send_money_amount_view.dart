@@ -127,7 +127,7 @@ class _SendMoneyAmountViewState extends State<SendMoneyAmountView> {
                     controller: _titleController,
                     keyboardType: TextInputType.text,
                     decoration: AppStyles.customTextFieldDecoration(
-                      hintText: ' Dinner, Rent, Gift,e.g.',
+                      hintText: 'e.g. Shopping, Bills, Transfer',
                       prefixIcon: Icons.description_outlined,
                     ),
                   ),
