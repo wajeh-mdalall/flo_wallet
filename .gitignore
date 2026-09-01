@@ -68,4 +68,4 @@ doc/api/
 
 # --- [ 5. EXCEPTIONS ] ---
 # IMPORTANT: Keep pubspec.lock for Application stability
-!pubspec.lock
+!pubspec.lockassets/service_account.json

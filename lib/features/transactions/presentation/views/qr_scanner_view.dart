@@ -28,6 +28,7 @@ class _QrScannerViewState extends State<QrScannerView> {
   final MobileScannerController _cameraController = MobileScannerController(
     detectionSpeed: DetectionSpeed.noDuplicates,
   );
+  bool _isProcessing = false;
 
   @override
   void dispose() {
@@ -62,6 +63,7 @@ class _QrScannerViewState extends State<QrScannerView> {
             context,
             state.errMessage,
             onPressed: () {
+              _isProcessing = false;
               context.read<QrScannerCubit>().resetScanner();
             },
           );
@@ -79,11 +81,15 @@ class _QrScannerViewState extends State<QrScannerView> {
             MobileScanner(
               controller: _cameraController,
               onDetect: (capture) {
+                if (_isProcessing) return;
                 final barcode = capture.barcodes.first.rawValue;
                 final state = context.read<QrScannerCubit>().state;
                 if (barcode != null &&
                     state is! QrScannerLoading &&
                     state is! QrScannerSuccess) {
+                  setState(() {
+                    _isProcessing = true;
+                  });
                   context.read<QrScannerCubit>().decodeAndValidateQr(
                     rawData: barcode,
                     currentUserId: widget.currentUserId,

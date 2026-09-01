@@ -5,4 +5,5 @@ abstract class UserRemoteDataSource {
   Future<UserModel> getUserData({required String uId});
   Future<void> updateProfile({required UserModel user});
   Future<UserModel> findUserByPhone({required String phoneNumber});
+  Future<void> updateFcmToken({required String uId, required String token});
 }

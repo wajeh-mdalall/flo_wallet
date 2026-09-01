@@ -1,7 +1,8 @@
 import 'package:flo_wallet/core/helper/image_upload_helper.dart';
 import 'package:flo_wallet/features/user/domain/usecases/find_user_by_phone_usecase.dart';
+import 'package:flo_wallet/features/user/domain/usecases/update_fcm_token_usecase.dart';
 import 'package:flo_wallet/features/user/domain/usecases/upload_profile_image_usecase.dart';
-import 'package:flo_wallet/features/user/presentation/cubit/complete_profile_cubit/user_profile_management_cubit.dart';
+import 'package:flo_wallet/features/user/presentation/cubit/user_profile_management_cubit/user_profile_management_cubit.dart';
 import 'package:flo_wallet/features/wallet/domain/usecases/create_wallet_usecase.dart';
 import '../../../core/injection/core_di.dart';
 import '../../../core/network/network_info.dart';
@@ -44,6 +45,9 @@ void setupUserDI() {
   );
   getIt.registerLazySingleton(
     () => FindUserByPhoneUsecase(userRepository: getIt<UserRepository>()),
+  );
+    getIt.registerLazySingleton(
+    () => UpdateFcmTokenUsecase(userRepository: getIt<UserRepository>()),
   );
 
   // Cubit

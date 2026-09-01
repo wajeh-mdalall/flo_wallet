@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flo_wallet/core/errors/failures/failure.dart';
+import 'package:flo_wallet/core/services/notification_service.dart';
 import 'package:flo_wallet/features/transactions/domain/entities/transactions_entity.dart';
 import 'package:flo_wallet/features/transactions/domain/usecases/get_transactions/get_transactions_params.dart';
 import 'package:flo_wallet/features/transactions/domain/usecases/get_transactions/watch_latest_transactions_usecase.dart';
 import 'package:flo_wallet/features/user/domain/entities/user_entity.dart';
 import 'package:flo_wallet/features/user/domain/usecases/get_user_data_usecase.dart';
+import 'package:flo_wallet/features/user/domain/usecases/update_fcm_token_usecase.dart';
 import 'package:flo_wallet/features/wallet/domain/entities/wallet_entity.dart';
 import 'package:flo_wallet/features/wallet/domain/usecases/get_wallet_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +19,7 @@ class HomeCubit extends Cubit<HomeState> {
   final GetUserDataUsecase getUserDataUsecase;
   final WatchWalletUsecase watchWalletUsecase;
   final WatchLatestTransactionsUsecase watchLatestTransactionsUsecase;
+  final UpdateFcmTokenUsecase updateFcmTokenUsecase;
 
   // Active stream subscription to prevent memory leaks
   StreamSubscription? _walletSubscription;
@@ -26,26 +29,30 @@ class HomeCubit extends Cubit<HomeState> {
     required this.getUserDataUsecase,
     required this.watchWalletUsecase,
     required this.watchLatestTransactionsUsecase,
+    required this.updateFcmTokenUsecase,
   }) : super(HomeState.initial());
 
   Future<void> fetchHomeData({required String uId}) async {
+    if (state.user?.uId == uId && state.status == HomeStatus.success) return;
     emit(state.copyWith(status: HomeStatus.loading));
 
     // Fetch static user data once via Future
     final Either<Failure, UserEntity> userResult = await getUserDataUsecase(
       uId: uId,
     );
-
     userResult.fold(
-      (failure) => emit(
-        state.copyWith(
-          status: HomeStatus.failure,
-          errMessage: failure.errMessage,
-          requiresSignIn: failure.requiresSignIn,
-        ),
-      ),
+      (failure) {
+        emit(
+          state.copyWith(
+            status: HomeStatus.failure,
+            errMessage: failure.errMessage,
+            requiresSignIn: failure.requiresSignIn,
+          ),
+        );
+      },
       (user) {
         emit(state.copyWith(user: user));
+        NotificationService.syncUserFcmToken(uId, updateFcmTokenUsecase);
         // Start dual live sync for wallet and transactions upon successful user fetch
         _startListeningToLiveUpdates(uId: uId);
       },
@@ -104,5 +111,11 @@ class HomeCubit extends Cubit<HomeState> {
     _walletSubscription?.cancel();
     _transactionsSubscription?.cancel();
     return super.close();
+  }
+
+  void resetState() {
+    _walletSubscription?.cancel();
+    _transactionsSubscription?.cancel();
+    emit(HomeState.initial());
   }
 }

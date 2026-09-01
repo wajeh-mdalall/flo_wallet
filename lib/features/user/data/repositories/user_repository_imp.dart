@@ -111,5 +111,16 @@ class UserRepositoryImp implements UserRepository {
     } catch (e) {
       return left(ExceptionHandler.exceptionToFailure(e));
     }
+  }@override
+Future<Either<Failure, Unit>> updateFcmToken({
+  required String uId,
+  required String token,
+}) async {
+  try {
+    await remoteDataSource.updateFcmToken(uId: uId, token: token);
+    return const Right(unit);
+  } catch (e) {
+    return Left(ExceptionHandler.exceptionToFailure(e));
   }
+}
 }

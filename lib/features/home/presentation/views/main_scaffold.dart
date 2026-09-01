@@ -1,3 +1,5 @@
+import 'package:flo_wallet/core/services/notification_service.dart';
+import 'package:flo_wallet/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flo_wallet/features/home/presentation/cubit/home_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flo_wallet/core/extensions/theme_extension.dart';
@@ -7,23 +9,42 @@ import '../widgets/custom_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MainScaffold extends StatelessWidget {
+class MainScaffold extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
   const MainScaffold({super.key, required this.navigationShell});
+
+  @override
+  State<MainScaffold> createState() => _MainScaffoldState();
+}
+
+class _MainScaffoldState extends State<MainScaffold> {
+  @override
+  void initState() {
+    super.initState();
+    final authState = context.read<AuthCubit>().state;
+    if (authState is Authenticated) {
+      context.read<HomeCubit>().fetchHomeData(uId: authState.authUser.uId);
+    }
+    NotificationService.onNotificationClicked = () {
+    if (mounted) {
+      widget.navigationShell.goBranch(1, initialLocation: true);
+    }
+  };
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(navigationShell.currentIndex),
+      appBar: CustomAppBar(widget.navigationShell.currentIndex),
       backgroundColor: context.colors.background,
-      body: navigationShell,
+      body: widget.navigationShell,
       bottomNavigationBar: CustomBottomAppBar(
-        currentIndex: navigationShell.currentIndex,
+        currentIndex: widget.navigationShell.currentIndex,
         onTap: (index) {
-          navigationShell.goBranch(
+          widget.navigationShell.goBranch(
             index,
-            initialLocation: index == navigationShell.currentIndex,
+            initialLocation: index == widget.navigationShell.currentIndex,
           );
         },
       ),

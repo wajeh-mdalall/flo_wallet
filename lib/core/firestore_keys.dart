@@ -35,4 +35,5 @@ abstract class UserFirestoreKeys {
   static const String profileImageUrl = "profileImageUrl";
   static const String dateOfBirth = "dateOfBirth";
   static const String country = "country";
+  static const String fcmToken = "fcmToken";
 }

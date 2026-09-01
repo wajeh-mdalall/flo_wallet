@@ -72,4 +72,18 @@ class UserRemoteDataSourceImp implements UserRemoteDataSource {
       throw ExceptionHandler.handleFirestoreError(e);
     }
   }
+  @override
+  Future<void> updateFcmToken({
+    required String uId,
+    required String token,
+  }) async {
+    try {
+      await _firestore
+          .collection(FirestoreCollections.users)
+          .doc(uId)
+          .set({UserFirestoreKeys.fcmToken: token},SetOptions(merge: true),);
+    } catch (e) {
+      throw ExceptionHandler.handleFirestoreError(e);
+    }
+  }
 }

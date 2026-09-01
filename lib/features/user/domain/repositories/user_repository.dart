@@ -15,4 +15,8 @@ abstract class UserRepository {
   Future<Either<Failure, UserEntity>> findUserByPhone({
     required String phoneNumber,
   });
+  Future<Either<Failure, Unit>> updateFcmToken({
+    required String uId,
+    required String token,
+  });
 }

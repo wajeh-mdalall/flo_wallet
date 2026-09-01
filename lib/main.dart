@@ -1,3 +1,4 @@
+import 'package:flo_wallet/core/services/notification_service.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flo_wallet/core/constants.dart';
@@ -19,6 +20,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotificationService.initialize();
   setupServiceLocator();
   await getIt<CacheHelper>().init();
   runApp(const MyApp());

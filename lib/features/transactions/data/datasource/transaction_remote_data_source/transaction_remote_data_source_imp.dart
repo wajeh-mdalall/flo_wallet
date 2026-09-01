@@ -3,6 +3,7 @@ import 'package:flo_wallet/core/firestore_keys.dart';
 import 'package:flo_wallet/core/errors/exceptions/firestore_exception.dart';
 import 'package:flo_wallet/core/errors/failures/firestore_failure.dart';
 import '../../../../../core/errors/handler/exception_handler.dart';
+import '../../../../../core/services/fcm_http_service.dart';
 import '../../../domain/entities/transactions_entity.dart';
 import 'transaction_remote_data_source.dart';
 import '../../models/transaction_model.dart';
@@ -109,9 +110,36 @@ class TransactionRemoteDataSourceImp implements TransactionRemoteDataSource {
 
         transaction.set(transactionRef, newTransaction.toJson());
       });
+      _sendNotificationToReceiver(
+        receiverId: receiverId,
+        senderName: senderName,
+        amount: amount,
+      );
     } catch (e) {
       throw ExceptionHandler.handleFirestoreError(e);
     }
+  }
+
+  Future<void> _sendNotificationToReceiver({
+    required String receiverId,
+    required String senderName,
+    required int amount,
+  }) async {
+    try {
+      final receiverDoc = await _firestore
+          .collection(FirestoreCollections.users)
+          .doc(receiverId)
+          .get();
+      final String? receiverToken = receiverDoc.data()?[UserFirestoreKeys.fcmToken];
+
+      if (receiverToken != null && receiverToken.isNotEmpty) {
+        await FcmHttpService.sendTransferNotification(
+          receiverFcmToken: receiverToken,
+          senderName: senderName,
+          amount: amount,
+        );
+      }
+    } catch (_) {}
   }
 
   @override

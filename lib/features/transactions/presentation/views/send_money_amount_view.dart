@@ -1,13 +1,13 @@
 import 'package:flo_wallet/core/constants.dart';
 import 'package:flo_wallet/core/extensions/string_extension.dart';
 import 'package:flo_wallet/core/functions/show_confirmation_dialog.dart';
+import 'package:flo_wallet/core/services/notification_service.dart';
 import 'package:flo_wallet/core/widgets/build_section_widget.dart';
 import 'package:flo_wallet/core/widgets/custom_input_scaffold.dart';
 import 'package:flo_wallet/features/transactions/presentation/cubit/send_money_cubit/send_money_cubit.dart';
 import 'package:flo_wallet/features/transactions/presentation/widgets/receiver_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SendMoneyAmountView extends StatefulWidget {
   final String senderId;
@@ -57,17 +57,14 @@ class _SendMoneyAmountViewState extends State<SendMoneyAmountView> {
     return BlocConsumer<SendMoneyCubit, SendMoneyState>(
       listener: (context, state) {
         if (state is SendMoneySuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              content: Text("transfer money success"),
-              backgroundColor: Colors.green,
-            ),
+          NotificationService.showSenderSuccessNotification(
+            recipientName: widget.receiverName.toFirstName(),
+            amount: int.parse(_amountController.text.trim()),
           );
-          context.pop();
+          Navigator.of(context).popUntil((route) {
+            return route.settings.name == AppConstants.kHomeView ||
+                route.isFirst;
+          });
         }
 
         if (state is SendMoneyError) {
