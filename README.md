@@ -4,7 +4,19 @@ A secure, modern, and scalable Digital Wallet mobile application built using **F
 
 ---
 
-## 🚀 Features
+## 📸 App Showcase
+
+<p align="center">
+  <img src="screenshots/dark_home_dashboard.jpg" width="19%" alt="Home Dashboard" />
+  <img src="screenshots/dark_receive_qr.jpg" width="19%" alt="Receive Money QR Code" />
+  <img src="screenshots/dark_transaction_detail.jpg" width="19%" alt="Transaction Details" />
+  <img src="screenshots/dark_wallet.jpg" width="19%" alt="Wallet Details" />
+  <img src="screenshots/dark_profile_settings.jpg" width="19%" alt="Profile & Settings" />
+</p>
+
+---
+
+## ✨ Features
 
 - **Secure Authentication:** Phone number registration with dynamic OTP verification flow.
 - **Wallet Management:** Real-time balance updates and automated account state tracking.
@@ -14,12 +26,6 @@ A secure, modern, and scalable Digital Wallet mobile application built using **F
 - **User Profile Management:** Customizable user profiles with dynamic avatar picker and search capabilities.
 - **Modern UI/UX:** Responsive layouts, custom UI components, clean navigation, and sleek onboarding screens.
 - **Advanced Exception Handling:** Robust mapping of remote data sources, Firebase exceptions, and failure states.
-
----
-
-## 📸 Media & Assets
-
-- **App Screenshots:** All visual previews, user interface flows, and application screenshots are organized and available in the `/screenshots` directory at the root of this repository.
 
 ---
 
@@ -42,7 +48,7 @@ This project is built using **Clean Architecture** split into three distinct lay
 
 ---
 
-## 📲 Download & Try the App
+## 🚀 Download & Try the App
 
 You can download the production-ready application binary directly from the GitHub Releases section. Two optimized builds are available for performance across different Android architectures:
 
