@@ -21,6 +21,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   void initState() {
     super.initState();
+    NotificationService.requestPermissions();
     final authState = context.read<AuthCubit>().state;
     if (authState is Authenticated) {
       context.read<HomeCubit>().fetchHomeData(uId: authState.authUser.uId);

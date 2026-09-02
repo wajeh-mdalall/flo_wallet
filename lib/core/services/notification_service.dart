@@ -21,13 +21,12 @@ class NotificationService {
 
   
   static Future<void> initialize() async {
-    await _requestPermissions();
     await _setupAndroidChannel();
     await _initLocalNotifications();
     _setupNotificationListeners();
   }
 
-  static Future<void> _requestPermissions() async {
+  static Future<void> requestPermissions() async {
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,
