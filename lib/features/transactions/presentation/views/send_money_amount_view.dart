@@ -123,7 +123,7 @@ class _SendMoneyAmountViewState extends State<SendMoneyAmountView> {
                 BuildSectionWidget(
                   title: "Title",
                   child: TextFormField(
-                    maxLength: 10,
+                    maxLength: 20,
                     controller: _titleController,
                     keyboardType: TextInputType.text,
                     decoration: AppStyles.customTextFieldDecoration(

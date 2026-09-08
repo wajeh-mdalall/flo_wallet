@@ -48,7 +48,7 @@ class CompleteProfileViewBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: BuildSectionWidget(
                   title: "Date Of Birth",
                   child: DateOfBirthFormField(controller: dobController),
@@ -56,7 +56,7 @@ class CompleteProfileViewBody extends StatelessWidget {
               ),
               SizedBox(width: 8),
               Expanded(
-                flex: 4,
+                flex: 5,
                 child: BuildSectionWidget(
                   title: "Country",
                   child: CountryDropdownFormField(
