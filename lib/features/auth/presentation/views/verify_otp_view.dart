@@ -45,7 +45,7 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
           FocusScope.of(context).unfocus();
         }
         if (state is Authenticated) {
-          if (state.authUser.isNewUser) {
+          if (state.authUser.isNewUser || !state.isProfileComplete) {
             context.go(
               AppConstants.kCompleteProfile,
               extra: {
@@ -63,46 +63,48 @@ class _VerifyOtpViewState extends State<VerifyOtpView> {
       },
 
       builder: (context, state) {
-        return CustomInputScaffold(
-          title: 'Enter the Code',
-          subtitle:
-              'A verification code has been sent to ${widget.phoneNumber}',
-          body: Column(
-            children: [
-              Pinput(
-                autofillHints: const [AutofillHints.oneTimeCode],
-                enableSuggestions: true,
-                onChanged: (value) {
-                  setState(() {
-                    pin = value;
-                    isCompleted = value.length == 6;
-                  });
-                },
-                keyboardType: TextInputType.number,
-                length: 6,
-                focusedPinTheme: _pinTheme(color: Colors.blueAccent.shade100),
-                defaultPinTheme: _pinTheme(
-                  color: context.colors.primary,
+        final bool isLoading = state is AuthLoading;
+        return PopScope(
+          canPop: !isLoading,
+          child: CustomInputScaffold(
+            title: 'Enter the Code',
+            subtitle:
+                'A verification code has been sent to ${widget.phoneNumber}',
+            body: Column(
+              children: [
+                Pinput(
+                  autofillHints: const [AutofillHints.oneTimeCode],
+                  enableSuggestions: true,
+                  onChanged: (value) {
+                    setState(() {
+                      pin = value;
+                      isCompleted = value.length == 6;
+                    });
+                  },
+                  keyboardType: TextInputType.number,
+                  length: 6,
+                  focusedPinTheme: _pinTheme(color: Colors.blueAccent.shade100),
+                  defaultPinTheme: _pinTheme(color: context.colors.primary),
                 ),
-              ),
-              const SizedBox(height: 10),
-              OtpResendWidget(
-                onResend: () {
-                  context.read<AuthCubit>().sendPhoneNumber(
-                    phoneNumber: widget.phoneNumber,
-                  );
-                },
-              ),
-            ],
+                const SizedBox(height: 10),
+                OtpResendWidget(
+                  onResend: () {
+                    context.read<AuthCubit>().sendPhoneNumber(
+                      phoneNumber: widget.phoneNumber,
+                    );
+                  },
+                ),
+              ],
+            ),
+            onSubmit: () {
+              context.read<AuthCubit>().confirmOtp(_currentVerificationId, pin);
+            },
+            titleButton: state is AutoVerifying
+                ? "Automatically verifying code..."
+                : null,
+            isEnabled: isCompleted && state is! AutoVerifying,
+            isLoading: isLoading,
           ),
-          onSubmit: () {
-            context.read<AuthCubit>().confirmOtp(_currentVerificationId, pin);
-          },
-          titleButton: state is AutoVerifying
-              ? "Automatically verifying code..."
-              : null,
-          isEnabled: isCompleted && state is! AutoVerifying,
-          isLoading: state is AuthLoading,
         );
       },
     );

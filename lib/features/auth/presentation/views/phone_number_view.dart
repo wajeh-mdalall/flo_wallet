@@ -24,7 +24,17 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is Authenticated) {
-          context.go(AppConstants.kHomeView);
+          if (!state.isProfileComplete) {
+            context.go(
+              AppConstants.kCompleteProfile,
+              extra: {
+                AppExtraKeys.kUId: state.authUser.uId,
+                AppExtraKeys.kPhoneNumber: state.authUser.phoneNumber,
+              },
+            );
+          } else {
+            context.go(AppConstants.kHomeView);
+          }
         }
         if (state is CodeSent) {
           context.go(
@@ -39,35 +49,41 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           showErrorDialog(context, state.errMessage);
         }
       },
-      builder: (context, state) => CustomInputScaffold(
-        showBackButton: false,
-        title: "Enter your mobile number",
-        subtitle: "A verification code will be sent to this number.",
-        body: CustomPhoneInputWidget(
-          onInputValidated: (value) {
-            setState(() {
-              isValidate = value;
-            });
-          },
-          onInputChanged: (PhoneNumber number) {
-            phoneNumber = number.phoneNumber;
-          },
+      builder: (context, state) {
+        final bool isLoading = state is AuthLoading;
+        return PopScope(
+          canPop: !isLoading,
+          child: CustomInputScaffold(
+            showBackButton: false,
+            title: "Enter your mobile number",
+            subtitle: "A verification code will be sent to this number.",
+            body: CustomPhoneInputWidget(
+              onInputValidated: (value) {
+                setState(() {
+                  isValidate = value;
+                });
+              },
+              onInputChanged: (PhoneNumber number) {
+                phoneNumber = number.phoneNumber;
+              },
 
-          errorText: (!isValidate && phoneNumber != null)
-              ? "Please enter a valid phone number"
-              : null,
-        ),
+              errorText: (!isValidate && phoneNumber != null)
+                  ? "Please enter a valid phone number"
+                  : null,
+            ),
 
-        onSubmit: () {
-          if (phoneNumber != null) {
-            context.read<AuthCubit>().sendPhoneNumber(
-              phoneNumber: phoneNumber!,
-            );
-          }
-        },
-        isEnabled: isValidate,
-        isLoading: state is AuthLoading,
-      ),
+            onSubmit: () {
+              if (phoneNumber != null) {
+                context.read<AuthCubit>().sendPhoneNumber(
+                  phoneNumber: phoneNumber!,
+                );
+              }
+            },
+            isEnabled: isValidate,
+            isLoading: isLoading,
+          ),
+        );
+      },
     );
   }
 }

@@ -31,7 +31,7 @@ class CustomInputScaffold extends StatelessWidget {
       backgroundColor: context.colors.background,
       appBar: showBackButton
           ? AppBar(
-              leading: const CustomBackButton(),
+              leading: CustomBackButton(isLoading: isLoading),
               backgroundColor: context.colors.background,
               scrolledUnderElevation: 0,
             )

@@ -113,48 +113,52 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
         }
       },
       builder: (context, state) {
-        return CustomInputScaffold(
-          showBackButton: _isEditMode,
-          title: _isEditMode ? "Update Profile" : "Complete your profile",
-          subtitle: _isEditMode
-              ? "Update your personal details here."
-              : "Enter your personal details to set up your wallet.",
-          body: CompleteProfileViewBody(
-            formKey: _formKey,
-            nameController: _nameController,
-            dobController: _dobController,
-            countryController: _countryController,
-            initialImageUrl: widget.userEntity?.profileImageUrl,
-            onImageSelected: (image) {
-              _selectedImage = image;
-              _validateForm();
-            },
-          ),
-          titleButton: _isEditMode ? "Save Changes" : "Save & Continue",
-          onSubmit: () {
-            if (_formKey.currentState!.validate()) {
-              if (_isEditMode) {
-                context.read<UserProfileManagementCubit>().updateProfile(
-                  name: _nameController.text.trim(),
-                  dobString: _dobController.text,
-                  country: _countryController.text,
-                  newProfileImage: _selectedImage,
-                  oldUser: widget.userEntity!,
-                );
-              } else {
-                context.read<UserProfileManagementCubit>().completeProfile(
-                  uId: widget.uId ?? "",
-                  name: _nameController.text.trim(),
-                  dobString: _dobController.text,
-                  country: _countryController.text,
-                  phoneNumber: widget.phoneNumber ?? "",
-                  profileImage: _selectedImage,
-                );
+        final bool isLoading = state is UserProfileManagementLoading;
+        return PopScope(
+          canPop: !isLoading && _isEditMode,
+          child: CustomInputScaffold(
+            showBackButton: _isEditMode,
+            title: _isEditMode ? "Update Profile" : "Complete your profile",
+            subtitle: _isEditMode
+                ? "Update your personal details here."
+                : "Enter your personal details to set up your wallet.",
+            body: CompleteProfileViewBody(
+              formKey: _formKey,
+              nameController: _nameController,
+              dobController: _dobController,
+              countryController: _countryController,
+              initialImageUrl: widget.userEntity?.profileImageUrl,
+              onImageSelected: (image) {
+                _selectedImage = image;
+                _validateForm();
+              },
+            ),
+            titleButton: _isEditMode ? "Save Changes" : "Save & Continue",
+            onSubmit: () {
+              if (_formKey.currentState!.validate()) {
+                if (_isEditMode) {
+                  context.read<UserProfileManagementCubit>().updateProfile(
+                    name: _nameController.text.trim(),
+                    dobString: _dobController.text,
+                    country: _countryController.text,
+                    newProfileImage: _selectedImage,
+                    oldUser: widget.userEntity!,
+                  );
+                } else {
+                  context.read<UserProfileManagementCubit>().completeProfile(
+                    uId: widget.uId ?? "",
+                    name: _nameController.text.trim(),
+                    dobString: _dobController.text,
+                    country: _countryController.text,
+                    phoneNumber: widget.phoneNumber ?? "",
+                    profileImage: _selectedImage,
+                  );
+                }
               }
-            }
-          },
-          isEnabled: _isEnabled,
-          isLoading: state is UserProfileManagementLoading,
+            },
+            isEnabled: _isEnabled,
+            isLoading: isLoading,
+          ),
         );
       },
     );

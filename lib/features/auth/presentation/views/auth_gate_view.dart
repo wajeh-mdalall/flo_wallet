@@ -18,7 +18,17 @@ class AuthGateView extends StatelessWidget {
       listener: (context, state) async {
         if (state is Authenticated) {
           FlutterNativeSplash.remove();
-          context.go(AppConstants.kHomeView);
+          if (!state.isProfileComplete) {
+            context.go(
+              AppConstants.kCompleteProfile,
+              extra: {
+                AppExtraKeys.kUId: state.authUser.uId,
+                AppExtraKeys.kPhoneNumber: state.authUser.phoneNumber,
+              },
+            );
+          } else {
+            context.go(AppConstants.kHomeView);
+          }
         } else if (state is Unauthenticated) {
           final bool isFirstTime =
               getIt<CacheHelper>().getData(key: AppConstants.isFirstTime) ??

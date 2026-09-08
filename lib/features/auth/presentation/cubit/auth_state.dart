@@ -21,14 +21,19 @@ final class CodeSent extends AuthState {
 //! After confirmOtp and getCurrentUser
 final class Authenticated extends AuthState {
   final AuthUserEntity authUser;
-  const Authenticated(this.authUser);
+  final bool isProfileComplete;
+  const Authenticated({
+    required this.authUser,
+    required this.isProfileComplete,
+  });
   @override
   List<Object?> get props => [authUser];
 }
+
 final class AutoVerifying extends AuthState {}
+
 //! After signOut
 final class Unauthenticated extends AuthState {}
-
 
 final class AuthError extends AuthState {
   final String errMessage;

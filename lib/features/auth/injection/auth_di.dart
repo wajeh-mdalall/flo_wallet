@@ -1,3 +1,4 @@
+import 'package:flo_wallet/features/user/domain/usecases/get_user_data_usecase.dart';
 import '../../../core/cache/cache_helper.dart';
 import '../../../core/network/network_info.dart';
 import '../../../core/injection/core_di.dart';
@@ -45,6 +46,7 @@ void setupAuthDI() {
       confirmOtpUseCase: getIt<ConfirmOtpUseCase>(),
       getCurrentUserUseCase: getIt<GetCurrentUserUseCase>(),
       signOutUseCase: getIt<SignOutUseCase>(),
+      getUserDataUsecase: getIt<GetUserDataUsecase>(),
     ),
   );
 }
