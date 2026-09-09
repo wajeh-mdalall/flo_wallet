@@ -64,17 +64,14 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(user: user));
         NotificationService.syncUserFcmToken(uId, updateFcmTokenUsecase);
         // Start dual live sync for wallet and transactions upon successful user fetch
-        if (_walletSubscription == null || _transactionsSubscription == null) {
-          _startListeningToLiveUpdates(uId: uId);
-        }
+        _startListeningToLiveUpdates(uId: uId);
       },
     );
   }
 
   void _startListeningToLiveUpdates({required String uId}) {
     // Cancel any existing subscription before starting a new one
-    _walletSubscription?.cancel();
-    _transactionsSubscription?.cancel();
+    _cancelSubscriptions();
     // Listen to real-time wallet balance updates
     _walletSubscription = watchWalletUsecase(uId: uId).listen((walletResult) {
       walletResult.fold(
@@ -117,17 +114,22 @@ class HomeCubit extends Cubit<HomeState> {
         });
   }
 
-  @override
-  Future<void> close() {
-    // Prevents memory leaks and unnecessary data usage by closing all streams
+  void _cancelSubscriptions() {
     _walletSubscription?.cancel();
     _transactionsSubscription?.cancel();
-    return super.close();
+    _walletSubscription = null;
+    _transactionsSubscription = null;
   }
 
   void resetState() {
-    _walletSubscription?.cancel();
-    _transactionsSubscription?.cancel();
+    _cancelSubscriptions();
     emit(HomeState.initial());
+  }
+
+  @override
+  Future<void> close() {
+    // Prevents memory leaks and unnecessary data usage by closing all streams
+    _cancelSubscriptions();
+    return super.close();
   }
 }
